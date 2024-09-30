@@ -9,7 +9,7 @@ if (!isset($_SESSION['nome'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SenacTec</title>
+    <title>SuperMarket</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../css/styles.css">
@@ -19,7 +19,7 @@ if (!isset($_SESSION['nome'])) {
     include_once("../include/header.php");
     ?>
     <?php
-    include_once("../classe/TrocarUrl.php");
+    include_once("../classes/TrocarUrl.php");
         $url = new TrocarUrl();
         $url->trocarUrl(@$_GET["tela"]);
     ?>
