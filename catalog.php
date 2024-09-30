@@ -14,36 +14,39 @@
         <div class="row">
             <!-- Produto 1 -->
             <div class="col-md-4">
-                <div class="card">
-                    <img src="img/nescau.png" class="card-img-top" alt="Produto 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Produto 1</h5>
-                        <p class="card-text">Descrição breve do produto 1.</p>
-                        <a href="product.php" class="btn btn-primary form-control">Ver Produto</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Produto 2 -->
-            <div class="col-md-4">
+                <a href="product.php" class="text-decoration-none">
                 <div class="card">
                     <img src="img/nescau.png" class="card-img-top" alt="Produto 2">
                     <div class="card-body">
                         <h5 class="card-title">Produto 2</h5>
                         <p class="card-text">Descrição breve do produto 2.</p>
-                        <a href="product.php" class="btn btn-primary form-control">Ver Produto</a>
                     </div>
                 </div>
+                </a>
+            </div>
+            <!-- Produto 2 -->
+            <div class="col-md-4">
+                <a href="product.php" class="text-decoration-none">
+                <div class="card">
+                    <img src="img/nescau.png" class="card-img-top" alt="Produto 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Produto 2</h5>
+                        <p class="card-text">Descrição breve do produto 2.</p>
+                    </div>
+                </div>
+                </a>
             </div>
             <!-- Produto 3 -->
             <div class="col-md-4">
+                <a href="product.php" class="text-decoration-none">
                 <div class="card">
-                    <img src="img/nescau.png" class="card-img-top" alt="Produto 3">
+                    <img src="img/nescau.png" class="card-img-top" alt="Produto 2">
                     <div class="card-body">
-                        <h5 class="card-title">Produto 3</h5>
-                        <p class="card-text">Descrição breve do produto 3.</p>
-                        <a href="product.php" class="btn btn-primary form-control">Ver Produto</a>
+                        <h5 class="card-title">Produto 2</h5>
+                        <p class="card-text">Descrição breve do produto 2.</p>
                     </div>
                 </div>
+                </a>
             </div>
         </div>
     </div>
