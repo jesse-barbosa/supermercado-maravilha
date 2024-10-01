@@ -50,7 +50,7 @@ if (isset($_GET['id'])) {
     <div class="container">
         <div class="row">
             <div class="col align-content-around">
-                <div class="lead fs-3">Produtos Cadastrados</div>
+                <div class="lead fs-3 fw-semibold">Produtos Cadastrados</div>
             </div>
             <div class="col-3 text-end">
                 <!-- Button trigger modal -->
@@ -65,7 +65,7 @@ if (isset($_GET['id'])) {
 <div class="section">
     <div class="container-fluid">
         <div class="row">
-            <div class="col">
+            <div class="col bg-white py-4 m-3 rounded-3">
                 <?php
                     include_once("../classe/MostrarProdutos.php");
                     $produtos = new MostrarProdutos();
@@ -217,7 +217,7 @@ if (isset($_GET['id'])) {
                         $listarCategorias = new ListarCategorias();
                         $categorias = $listarCategorias->listarCategorias();
                         foreach ($categorias as $categoria) {
-                            echo "<option value='" . htmlspecialchars($categoria['idCategory']) . "'>" . htmlspecialchars($categoria['nameCategory']) . "</option>";
+                            echo "<option value='" . htmlspecialchars($categoria['id']) . " '>" . htmlspecialchars($categoria['name']) . "</option>";
                         }
                         ?>
                     </select>
@@ -227,8 +227,8 @@ if (isset($_GET['id'])) {
                     <label for="editSituacaoProduto" class="form-label">Situação do Produto:</label>
                     <select name="situacaoProduto" id="editSituacaoProduto" class="form-select" required>
                         <option value="" disabled selected>Escolha a situação</option>
-                        <option value="ATIVO">Ativo</option>
-                        <option value="INATIVO">Inativo</option>
+                        <option value="ATIVO">ATIVO</option>
+                        <option value="INATIVO">INATIVO</option>
                     </select>
                 </div>
             </div>

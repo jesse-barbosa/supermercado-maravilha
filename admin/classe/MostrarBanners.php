@@ -22,7 +22,7 @@ class MostrarBanners extends CriaPaginacao {
 
     public function totalBanners() {
         try {
-            $sql = "SELECT COUNT(*) as total FROM banners WHERE deletedBanner = 0";
+            $sql = "SELECT COUNT(*) as total FROM banners";
             $query = self::execSql($sql);
             $resultado = self::listarDados($query);
 
@@ -34,10 +34,7 @@ class MostrarBanners extends CriaPaginacao {
 
     public function mostrarBanners() {
         try {
-            $sql = "SELECT b.idBanner, b.statusBanner, b.idImage, i.nameImage, i.urlImage
-                    FROM banners b
-                    JOIN images i ON b.idImage = i.idImage
-                    WHERE b.deletedBanner = 0";
+            $sql = "SELECT * FROM banners";
 
             $this->setParametro($this->strNumPagina);
             $this->setFileName($this->strUrl);
@@ -49,9 +46,9 @@ class MostrarBanners extends CriaPaginacao {
 
             if (count($banners) > 0) {
                 echo "
-                    <table class='table table-light table-hover'>
+                    <table class='table table-hover'>
                         <thead>
-                            <tr class='text-center table-dark'>
+                            <tr class='text-center'>
                                 <th>ID</th>
                                 <th>Imagem</th>
                                 <th>Status</th>
@@ -63,11 +60,11 @@ class MostrarBanners extends CriaPaginacao {
                 ";
                 foreach ($banners as $resultado) {
                     echo "<tr class='text-center'>";
-                    echo "<td class='fw-lighter'>" . htmlspecialchars($resultado['idBanner']) . "</td>";
-                    echo "<td class='fw-lighter'><img src='" . htmlspecialchars($resultado['urlImage']) . "' alt='" . htmlspecialchars($resultado['nameImage']) . "' width='100'></td>";
-                    echo "<td class='fw-lighter'>" . htmlspecialchars($resultado['statusBanner']) . "</td>";
-                    echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-bs-toggle='modal' data-bs-target='#editBannerModal' data-id='" . htmlspecialchars($resultado['idBanner']) . "' data-situacao='" . htmlspecialchars($resultado['statusBanner']) . "' data-url='" . htmlspecialchars($resultado['urlImage']) . "' data-idimage='" . htmlspecialchars($resultado['idImage']) . "'></a></td>";
-                    echo "<td><i class='bi bi-trash btn btn-dark' data-id='" . htmlspecialchars($resultado['idBanner']) . "'></i></td>";
+                    echo "<td class='fw-lighter'>" . $resultado['id'] . "</td>";
+                    echo "<td class='fw-lighter'><img src='" . $resultado['image'] . "' alt='Imagem do Banner' width='100'></td>";
+                    echo "<td class='fw-lighter'>" . $resultado['status'] . "</td>";
+                    echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-bs-toggle='modal' data-bs-target='#editBannerModal' data-id='" . $resultado['id'] . "' data-url='" . $resultado['image']. "' data-situacao='" . $resultado['status'] . "'></a></td>";
+                    echo "<td><i class='bi bi-trash btn btn-dark' data-id='" . $resultado['idBanner'] . "'></i></td>";
                     echo "</tr>";
                 }
                 echo "

@@ -21,7 +21,7 @@ class MostrarContato extends criaPaginacao {
 
     public function mostrarContato() {
         try {
-            $sql = "SELECT * FROM contacts WHERE deletedContact = 0";
+            $sql = "SELECT * FROM contacts";
             $this->setParametro($this->strNumPagina);
             $this->setFileName($this->strUrl);
             $this->setInfoMaxPag(9);
@@ -34,15 +34,12 @@ class MostrarContato extends criaPaginacao {
 
             if (count($contatos) > 0) {
                 echo "
-                <table class='table table-light table-hover'>
+                <table class='table table-hover'>
                     <thead>
-                        <tr class='text-center table-dark'>
+                        <tr class='text-center'>
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Email</th>
-                            <th>Cidade</th>
-                            <th>Estado</th>
-                            <th>Assunto</th>
                             <th>Mensagem</th>
                             <th width='30'></th>
                         </tr>
@@ -52,14 +49,11 @@ class MostrarContato extends criaPaginacao {
                 foreach($contatos as $resultado){
                     $contador++;
                     echo "<tr class='text-center'>";
-                        echo "<td class='fw-lighter'>".$resultado['idContact']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['nameContact']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['emailContact']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['cityContact']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['stateContact']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['subjectContact']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['messageContact']."</td>";
-                        echo "<td><a href='#' class='bi bi-trash btn btn-dark' data-id='".$resultado['idContact']."'></a></td>";
+                        echo "<td class='fw-lighter'>".$resultado['id']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['name']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['email']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['message']."</td>";
+                        echo "<td><a href='#' class='bi bi-trash btn btn-dark' data-id='".$resultado['id']."'></a></td>";
                     echo "</tr>";
                 }
                 echo "

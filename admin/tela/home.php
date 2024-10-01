@@ -64,7 +64,6 @@
             $cards = [
                 ['icon' => 'bi-pc-display', 'class' => 'MostrarProdutos', 'method' => 'totalProdutos', 'label' => 'Total de Produtos'],
                 ['icon' => 'bi-bookmark', 'class' => 'MostrarCategorias', 'method' => 'totalCategorias', 'label' => 'Total de Categorias'],
-                ['icon' => 'bi-bookmarks', 'class' => 'MostrarSubCategoria', 'method' => 'totalSubCategorias', 'label' => 'Total de Sub Categorias'],
                 ['icon' => 'bi-image', 'class' => 'MostrarBanners', 'method' => 'totalBanners', 'label' => 'Total de Banners'],
                 ['icon' => 'bi-person', 'class' => 'MostrarUsuarios', 'method' => 'totalUsuarios', 'label' => 'Total de Usuários']
             ];

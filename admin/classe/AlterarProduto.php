@@ -26,25 +26,25 @@ class AlterarProduto extends Conexao {
     }
 
     // Função para alterar os dados de um produto
-    public function alterarProduto($idProduto, $nome, $descricao, $quantidade, $preco, $categoria, $situacao, $imagem  = null)
+    public function alterarProduto($idProduto, $nome, $descricao, $quantidade, $preco, $categoria, $situacao, $imagem = null)
     {
         try {
             // Verifica se o produto existe
             if (!$this->obterProduto($idProduto)) {
                 return "Produto não encontrado.";
             }
-
+    
             // Query de atualização com ou sem imagem
-            if ($idImage !== null && $idImage !== '') {
+            if ($imagem !== null && $imagem !== '') {
                 $sql = "UPDATE products SET name = ?, description = ?, in_stock = ?, price = ?, idCategory = ?, status = ?, image = ? WHERE id = ?";
                 $stmt = $this->getConnection()->prepare($sql);
-                $stmt->bind_param("ssdisissi", $nome, $descricao, $quantidade, $preco, $categoria, $subcategoria, $situacao, $idImage, $idProduto);
+                $stmt->bind_param("ssdisssi", $nome, $descricao, $quantidade, $preco, $categoria, $situacao, $imagem, $idProduto);
             } else {
                 $sql = "UPDATE products SET name = ?, description = ?, in_stock = ?, price = ?, idCategory = ?, status = ? WHERE id = ?";
                 $stmt = $this->getConnection()->prepare($sql);
-                $stmt->bind_param("ssdisisi", $nome, $descricao, $quantidade, $preco, $categoria, $situacao, $idProduto);
+                $stmt->bind_param("ssdissi", $nome, $descricao, $quantidade, $preco, $categoria, $situacao, $idProduto);
             }
-
+    
             // Executa o SQL e retorna o resultado da operação
             if ($stmt->execute()) {
                 return true;
@@ -55,5 +55,6 @@ class AlterarProduto extends Conexao {
             return "Erro: " . $e->getMessage();
         }
     }
+    
 }
 ?>

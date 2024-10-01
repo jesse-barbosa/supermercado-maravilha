@@ -60,17 +60,17 @@ class MostrarProdutos extends CriaPaginacao {
         
             if (count($produtos) > 0) {
                 echo "
-                <table class='table table-light table-hover'>
+                <table class='table table-hover'>
                     <thead>
-                        <tr class='text-center table-dark'>
-                            <th>ID</th>
-                            <th>Produto</th>
-                            <th>Descrição</th>
-                            <th>Valor</th>
-                            <th>Quantidade</th>
-                            <th>Imagem</th>
-                            <th>Categoria</th>
-                            <th>Situação</th>
+                        <tr class='text-center'>
+                            <th class='text-secondary fw-light'>ID</th>
+                            <th class='text-secondary fw-light'>Produto</th>
+                            <th class='text-secondary fw-light'>Descrição</th>
+                            <th class='text-secondary fw-light'>Valor</th>
+                            <th class='text-secondary fw-light'>Quantidade</th>
+                            <th class='text-secondary fw-light'>Imagem</th>
+                            <th class='text-secondary fw-light'>Categoria</th>
+                            <th class='text-secondary fw-light'>Situação</th>
                             <th width='30'></th>
                             <th width='30'></th>
                         </tr>
@@ -79,20 +79,20 @@ class MostrarProdutos extends CriaPaginacao {
                 ";
                 foreach ($produtos as $resultado) {
                     echo "<tr class='text-center'>";
-                        echo "<td class='fw-lighter'>" . htmlspecialchars($resultado['idProduct']) . "</td>";
-                        echo "<td class='fw-lighter'>" . htmlspecialchars($resultado['nameProduct']) . "</td>";
-                        echo "<td class='fw-lighter'>" . htmlspecialchars($resultado['descProduct']) . "</td>";
-                        echo "<td class='fw-lighter'>" . htmlspecialchars($resultado['priceProduct']) . "</td>";
-                        echo "<td class='fw-lighter'>" . htmlspecialchars($resultado['quantProduct']) . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['idProduct']) . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['nameProduct']) . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['descProduct']) . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['priceProduct']) . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['quantProduct']) . "</td>";
                         if (!empty($resultado['urlImage'])) {
-                            echo "<td class='fw-lighter'><img src='" . htmlspecialchars($resultado['urlImage']) . "' class='h-25 w-25' alt='Imagem do Produto'/></td>";
+                            echo "<td class='fw-normal text-dark'><img src='" . htmlspecialchars($resultado['urlImage']) . "' class='h-25 w-25' alt='Imagem do Produto'/></td>";
                         } else {
-                            echo "<td class='fw-lighter'>Sem imagem</td>";
+                            echo "<td class='fw-normal text-dark'>Sem imagem</td>";
                         }
-                        echo "<td class='fw-lighter'>" . htmlspecialchars($resultado['nameCategory']) . "</td>";
-                        echo "<td class='fw-lighter'>" . htmlspecialchars($resultado['statusProduct']) . "</td>";
-                        echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-bs-toggle='modal' data-bs-target='#editProductModal' data-id='" . htmlspecialchars($resultado['idProduct']) . "' data-url='" . htmlspecialchars($resultado['urlImage']) . "' data-nome='" . htmlspecialchars($resultado['nameProduct']) . "' data-descricao='" . htmlspecialchars($resultado['descProduct']) . "' data-quantidade='" . htmlspecialchars($resultado['quantProduct']) . "' data-preco='" . htmlspecialchars($resultado['priceProduct']) . "'></a></td>";
-                        echo "<td><a href='#' class='bi bi-trash btn btn-outline-danger' data-id='" . htmlspecialchars($resultado['idProduct']) . "'></a></td>";
+                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['nameCategory']) . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['statusProduct']) . "</td>";
+                        echo "<td><a href='#' class='bi bi-pencil text-black fs-5' data-bs-toggle='modal' data-bs-target='#editProductModal' data-id='" . htmlspecialchars($resultado['idProduct']) . "' data-url='" . htmlspecialchars($resultado['urlImage']) . "' data-nome='" . htmlspecialchars($resultado['nameProduct']) . "' data-descricao='" . htmlspecialchars($resultado['descProduct']) . "' data-quantidade='" . htmlspecialchars($resultado['quantProduct']) . "' data-preco='" . htmlspecialchars($resultado['priceProduct']) . "'></a></td>";
+                        echo "<td><a href='#' class='bi bi-trash text-black fs-5' data-id='" . htmlspecialchars($resultado['idProduct']) . "'></a></td>";
                     echo "</tr>";
                 }
                 echo "
@@ -100,7 +100,7 @@ class MostrarProdutos extends CriaPaginacao {
                 </table>
                 ";
             } else {
-                echo "<p class='text-center'>Nenhum produto cadastrado.</p>";
+                echo "<p class='text-center text-dark pt-2'>Nenhum produto cadastrado.</p>";
             }
         } catch (Exception $e) {
             echo "Erro ao mostrar os produtos: " . $e->getMessage();

@@ -22,7 +22,7 @@ class MostrarUsuarios extends criaPaginacao {
 
     public function totalUsuarios() {
         try {
-            $sql = "SELECT COUNT(*) as total FROM users WHERE deletedUser = 0";
+            $sql = "SELECT COUNT(*) as total FROM users";
             $query = self::execSql($sql);
             $resultado = self::listarDados($query);
 
@@ -34,7 +34,7 @@ class MostrarUsuarios extends criaPaginacao {
     }
     public function mostrarUsuario() {
         try {
-            $sql = "SELECT * FROM users WHERE deletedUser = 0";
+            $sql = "SELECT * FROM users";
             $this->setParametro($this->strNumPagina);
             $this->setFileName($this->strUrl);
             $this->setInfoMaxPag(6);
@@ -47,15 +47,18 @@ class MostrarUsuarios extends criaPaginacao {
 
             if (count($usuarios) > 0) {
                 echo "
-                <table class='table table-light table-hover'>
+                <table class='table table-hover'>
                     <thead>
-                        <tr class='text-center table-dark'>
+                        <tr class='text-center'>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>Email</th>
                             <th>Senha</th>
+                            <th>Acesso</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Endereço</th>
                             <th>Situação</th>
-                            <th>Tipo</th>
                             <th width='30'></th>
                             <th width='30'></th>
                         </tr>
@@ -65,14 +68,17 @@ class MostrarUsuarios extends criaPaginacao {
                 foreach($usuarios as $resultado){
                     $contador++;
                     echo "<tr class='text-center'>";
-                        echo "<td class='fw-lighter'>".$resultado['idUser']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['nameUser']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['emailUser']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['passwordUser']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['statusUser']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['typeUser']."</td>";
-                        echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-id='".$resultado['idUser']."' data-nome='".$resultado['nameUser']."' data-email='".$resultado['emailUser']."' data-situacao='".$resultado['statusUser']."' data-type='".$resultado['typeUser']."'></a></td>";
-                        echo "<td><a href='#' class='bi bi-trash btn btn-dark' data-id='".$resultado['idUser']."'></a></td>";
+                        echo "<td class='fw-lighter'>".$resultado['id']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['name']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['password']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['access_level']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['email']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['cpf']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['phone']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['address']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['status']."</td>";
+                        echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-id='".$resultado['id']."' data-nome='".$resultado['name']."' data-email='".$resultado['email']."' data-situacao='".$resultado['status']."' data-type='".$resultado['access_level']."'></a></td>";
+                        echo "<td><a href='#' class='bi bi-trash btn btn-dark' data-id='".$resultado['id']."'></a></td>";
                     echo "</tr>";
                 }
                 echo "

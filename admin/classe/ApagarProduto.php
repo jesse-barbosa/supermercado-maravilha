@@ -8,8 +8,8 @@ class ApagarProduto extends Conexao {
 
     public function apagarProduto($idProduto) {
         try {
-            // Consulta preparada para atualizar o status do produto
-            $sql = "UPDATE products SET deletedProduct = 1 WHERE idProduct = ?";
+            // Consulta preparada para deletar o produto
+            $sql = "DELETE FROM products WHERE id = ?";
             $stmt = $this->getConnection()->prepare($sql);
             if ($stmt === false) {
                 throw new Exception("Erro ao preparar a consulta: " . $this->getConnection()->error);

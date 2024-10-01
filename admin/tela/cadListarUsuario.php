@@ -1,9 +1,4 @@
 <?php
-// Verifica o tipo do usuário
-if (!isset($_SESSION['typeUser']) || $_SESSION['typeUser'] !== 'admin-master') {
-    echo "<script>alert('Você não tem permissão para acessar esta página! Apenas administradores-master podem acessar.'); window.location.href = 'index.php';</script>";
-    die();
-}
 // Adicionar
 include_once("../classe/AdicionarUsuario.php");
 
@@ -65,7 +60,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col table-responsive">
+            <div class="col bg-white py-4 m-3 rounded-3">
                 <?php
                     include_once("../classe/MostrarUsuarios.php");
                     $usuarios = new MostrarUsuarios();

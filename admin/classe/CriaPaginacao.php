@@ -31,9 +31,9 @@
         self::iniciaPaginacao(); //Executa o método que inicia a paginação
         $contador = 0; //Contador para gerar o número de páginas
  */
-include_once("MinhaConexao.php"); //Incluir a classe de conexão
+include_once("Conexao.php"); //Incluir a classe de conexão
 
-class criaPaginacao extends MinhaConexao //Indicar o arquivo que será herdado
+class criaPaginacao extends Conexao //Indicar o arquivo que será herdado
 {
 	private $ida, $param;
 	private $maxPage, $maxLink, $numeroPaginas;

@@ -21,7 +21,7 @@ class MostrarCategorias extends CriaPaginacao {
     }
     public function totalCategorias() {
         try {
-            $sql = "SELECT COUNT(*) as total FROM categories WHERE deletedCategory = 0";
+            $sql = "SELECT COUNT(*) as total FROM categories";
             $query = self::execSql($sql);
             $resultado = self::listarDados($query);
 
@@ -32,7 +32,7 @@ class MostrarCategorias extends CriaPaginacao {
     }
     public function mostrarCategoria() {
         try {
-            $sql = "SELECT * FROM categories WHERE deletedCategory = 0";
+            $sql = "SELECT * FROM categories";
             $this->setParametro($this->strNumPagina);
             $this->setFileName($this->strUrl);
             $this->setInfoMaxPag(6);
@@ -44,9 +44,9 @@ class MostrarCategorias extends CriaPaginacao {
 
             if (count($categorias) > 0) {
                 echo "
-                <table class='table table-light table-hover'>
+                <table class='table table-hover'>
                     <thead>
-                        <tr class='text-center table-dark'>
+                        <tr class='text-center'>
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Descrição</th>
@@ -60,12 +60,12 @@ class MostrarCategorias extends CriaPaginacao {
                 foreach($categorias as $resultado){
                     $contador++;
                     echo "<tr class='text-center'>";
-                        echo "<td class='fw-lighter'>".$resultado['idCategory']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['nameCategory']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['descCategory']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['statusCategory']."</td>";
-                        echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-bs-toggle='modal' data-bs-target='#editCategoryModal' data-id='".$resultado['idCategory']."' data-nome='".$resultado['nameCategory']."' data-descricao='".$resultado['descCategory']."' data-situacao='".$resultado['statusCategory']."'></a></td>";
-                        echo "<td><i class='bi bi-trash btn btn-dark' data-id='".$resultado['idCategory']."'></i></td>";
+                        echo "<td class='fw-lighter'>".$resultado['id']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['name']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['description']."</td>";
+                        echo "<td class='fw-lighter'>".$resultado['status']."</td>";
+                        echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-bs-toggle='modal' data-bs-target='#editCategoryModal' data-id='".$resultado['id']."' data-nome='".$resultado['name']."' data-descricao='".$resultado['description']."' data-situacao='".$resultado['status']."'></a></td>";
+                        echo "<td><i class='bi bi-trash btn btn-dark' data-id='".$resultado['id']."'></i></td>";
                     echo "</tr>";
                 }
                 echo "

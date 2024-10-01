@@ -57,8 +57,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idCat
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <div class="table-responsive">
+            <div class="col bg-white py-4 m-3 rounded-3">
                     <?php
                         include_once("../classe/MostrarCategorias.php");
                         $categorias = new MostrarCategorias();
@@ -67,7 +66,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idCat
                         $categorias->setSessao('');
                         $categorias->mostrarCategoria();
                     ?>
-                </div>
             </div>
         </div>
     </div>
