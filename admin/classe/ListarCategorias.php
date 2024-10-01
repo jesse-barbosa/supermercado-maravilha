@@ -5,7 +5,7 @@ class ListarCategorias extends Conexao {
     public function listarCategorias(): array
     {
         try {
-            $sql = "SELECT idCategory, nameCategory FROM categories WHERE deletedCategory = 0";
+            $sql = "SELECT id, name FROM categories";
             $resultado = self::execSql($sql);
 
             if (mysqli_num_rows($resultado) > 0) {

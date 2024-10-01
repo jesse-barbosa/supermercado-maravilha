@@ -52,7 +52,7 @@ class VerificarLogin extends Conexao
         /**** Verifica se o foi encontrado o usuário, ou seja, se dados foram digitados corretamente *****/
         }else if($dados <= 0){
             /***** Exibe mensagem onde onde os dados são inválidos *****/
-            echo $this->erro = "<div class='alert alert-danger mt-3'>Email ou senha inválidos.</div>";
+            echo $this->erro = "<div class='alert alert-danger mt-3'>Nome ou senha inválidos.</div>";
             /**** Verifica se foi encontrado registro no banco *****/
         }else if($dados == 1){
             /**** Se encontrar resultado no banco, irá iniciar a sessão *****/
@@ -62,7 +62,7 @@ class VerificarLogin extends Conexao
             $_SESSION['senha'] = $this->senha;
             $_SESSION['typeUser'] = $resultado[0]['typeUser'];
             
-            header('Location: /SuperMarket/admin/tela/index.php');
+            header('Location: /supermarket-senactec/admin/tela/index.php');
         }
      } catch (Exception $e) {
         echo "Erro: ".$e->getMessage();

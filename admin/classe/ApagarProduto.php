@@ -2,32 +2,32 @@
 include_once("Conexao.php");
 
 class ApagarProduto extends Conexao {
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
 
     public function apagarProduto($idProduto) {
         try {
-            // Consulta preparada
+            // Consulta preparada para atualizar o status do produto
             $sql = "UPDATE products SET deletedProduct = 1 WHERE idProduct = ?";
-            $stmt = mysqli_prepare($this->conectar, $sql);
+            $stmt = $this->getConnection()->prepare($sql);
             if ($stmt === false) {
-                throw new Exception("Erro ao preparar a consulta: " . mysqli_error($this->conectar));
+                throw new Exception("Erro ao preparar a consulta: " . $this->getConnection()->error);
             }
 
             // Vincular parâmetros e executar a consulta
-            mysqli_stmt_bind_param($stmt, 'i', $idProduto);
-            $result = mysqli_stmt_execute($stmt);
+            $stmt->bind_param('i', $idProduto);
+            $result = $stmt->execute();
             if (!$result) {
-                throw new Exception("Erro ao executar a consulta: " . mysqli_error($this->conectar));
+                throw new Exception("Erro ao executar a consulta: " . $stmt->error);
             }
 
-            mysqli_stmt_close($stmt);
+            $stmt->close();
             echo "<script>alert('Produto apagado com sucesso!');window.location.href = 'index.php?tela=cadListarProduto'</script>";
             exit();
         } catch (Exception $e) {
             error_log("Erro ao apagar produto: " . $e->getMessage());
+            echo "<script>alert('Erro ao apagar produto: " . $e->getMessage() . "');window.location.href = 'index.php?tela=cadListarProduto'</script>";
             exit();
         }
     }

@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-10">
                 <div>
-                    <h1 class="fw-lighter" id="welcome-message"></h1>
+                    <h1 class="fw-normal" id="welcome-message"></h1>
                 </div>
             </div>
             <div class="col-md-2 text-center">

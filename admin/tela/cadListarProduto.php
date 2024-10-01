@@ -8,13 +8,12 @@ if (isset($_POST['enviar'])) {
     $quantidade = $_POST['quantidadeProduto'];
     $preco = $_POST['precoProduto'];
     $categoria = $_POST['categoriaProduto'];
-    $subcategoria = $_POST['subcategoriaProduto'];
-    $situacao = $_POST['situacaoProduto'];
+    $situacao = $_POST['situacaoProduto']; // Captura a situação
 
-    $idImage = isset($_POST['idImage']) ? $_POST['idImage'] : null;
+    $imagem = $_FILES['url']; // A imagem deve ser capturada a partir de $_FILES
 
     $adicionarProduto = new AdicionarProduto();
-    $adicionarProduto->adicionarProduto($nome, $descricao, $quantidade, $preco, $categoria, $subcategoria, $situacao, $idImage);
+    $adicionarProduto->adicionarProduto($nome, $descricao, $quantidade, $preco, $categoria, $imagem, $situacao);
 }
 
 // Editar
@@ -27,7 +26,6 @@ if (isset($_POST['editar'])) {
     $quantidade = $_POST['quantidadeProduto'];
     $preco = $_POST['precoProduto'];
     $categoria = $_POST['categoriaProduto'];
-    $subcategoria = $_POST['subcategoriaProduto'];
     $situacao = $_POST['situacaoProduto'];
 
     @$idImage = $_POST['idImage'];
@@ -101,90 +99,69 @@ if (isset($_GET['id'])) {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form method="POST" action="" enctype="multipart/form-data">
-            <div class="modal-body">
-                <!-- Nome do Produto -->
-                <div class="mb-3 text-start">
-                    <label for="nomeProduto" class="form-label">Nome do Produto:</label>
-                    <input type="text" name="nomeProduto" id="nomeProduto" class="form-control" required>
+                <div class="modal-body">
+                    <!-- Nome do Produto -->
+                    <div class="mb-3 text-start">
+                        <label for="nomeProduto" class="form-label">Nome do Produto:</label>
+                        <input type="text" name="nomeProduto" id="nomeProduto" class="form-control" required>
+                    </div>
+                    <!-- Seleção da Imagem -->
+                    <div class="mb-3 text-start">
+                        <label for="addIdImage" class="form-label">Selecione a Imagem:</label>
+                        <div class="text-start px-1 py-1 mb-1">
+                            <label for="addUrlImage" class="form-label">Imagem</label>
+                            <input type="file" class="form-control" id="addUrlImage" name="url" required>
+                        </div>
+                    </div>
+                    <!-- Preview da Imagem Selecionada -->
+                    <div class="mb-3 text-start">
+                        <img class="addImagemPreview img-fluid" src="" alt="Preview da Imagem Selecionada">
+                    </div>
+                    <!-- Descrição do Produto -->
+                    <div class="mb-3 text-start">
+                        <label for="descricaoProduto" class="form-label">Descrição do Produto:</label>
+                        <textarea name="descricaoProduto" id="descricaoProduto" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <!-- Quantidade do Produto -->
+                    <div class="mb-3 text-start">
+                        <label for="quantidadeProduto" class="form-label">Quantidade do Produto:</label>
+                        <input type="number" name="quantidadeProduto" id="quantidadeProduto" class="form-control" required>
+                    </div>
+                    <!-- Preço do Produto -->
+                    <div class="mb-3 text-start">
+                        <label for="precoProduto" class="form-label">Preço do Produto:</label>
+                        <input type="number" name="precoProduto" id="precoProduto" class="form-control" step="0.01" required>
+                    </div>
+                    <!-- Categoria do Produto -->
+                    <div class="mb-3 text-start">
+                        <label for="categoriaProduto" class="form-label">Categoria do Produto:</label>
+                        <select name="categoriaProduto" id="categoriaProduto" class="form-select text-dark" required>
+                            <option value="" disabled selected>Escolha uma categoria</option>
+                            <?php
+                            include_once("../classe/ListarCategorias.php");
+                            $listarCategorias = new ListarCategorias();
+                            $categorias = $listarCategorias->listarCategorias();
+                            foreach ($categorias as $categoria) {
+                                echo "<option value='" . htmlspecialchars($categoria['idCategory']) . "' class='text-dark'>" . htmlspecialchars($categoria['nameCategory']) . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <!-- Situação do Produto -->
+                    <div class="mb-3 text-start">
+                        <label for="situacaoProduto" class="form-label">Situação do Produto:</label>
+                        <select name="situacaoProduto" id="situacaoProduto" class="form-select" required>
+                            <option value="" disabled selected>Escolha a situação</option>
+                            <option value="ATIVO">Ativo</option>
+                            <option value="INATIVO">Inativo</option>
+                        </select>
+                    </div>
                 </div>
-                <!-- Seleção da Imagem -->
-                <div class="mb-3 text-start">
-                    <label for="addIdImage" class="form-label">Selecione a Imagem:</label>
-                    <select name="idImage" id="addIdImage" class="form-select" required>
-                        <option value="" disabled selected>Escolha uma imagem</option>
-                        <?php
-                        include_once("../classe/ListarImagens.php");
-                        $listarImagens = new ListarImagens();
-                        $imagens = $listarImagens->listarImagens();
-                        foreach ($imagens as $imagem) {
-                            echo "<option value='" . htmlspecialchars($imagem['idImage']) . "' data-url='" . htmlspecialchars($imagem['urlImage']) . "'>" . htmlspecialchars($imagem['nameImage']) . "</option>";
-                        }
-                        ?>
-                    </select>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" name="enviar" class="btn btn-primary">Adicionar Produto</button>
                 </div>
-                <!-- Preview da Imagem Selecionada -->
-                <div class="mb-3 text-start">
-                    <img class="addImagemPreview img-fluid" src="" alt="Preview da Imagem Selecionada">
-                </div>
-                <!-- Descrição do Produto -->
-                <div class="mb-3 text-start">
-                    <label for="descricaoProduto" class="form-label">Descrição do Produto:</label>
-                    <textarea name="descricaoProduto" id="descricaoProduto" class="form-control" rows="3" required></textarea>
-                </div>
-                <!-- Quantidade do Produto -->
-                <div class="mb-3 text-start">
-                    <label for="quantidadeProduto" class="form-label">Quantidade do Produto:</label>
-                    <input type="number" name="quantidadeProduto" id="quantidadeProduto" class="form-control" required>
-                </div>
-                <!-- Preço do Produto -->
-                <div class="mb-3 text-start">
-                    <label for="precoProduto" class="form-label">Preço do Produto:</label>
-                    <input type="number" name="precoProduto" id="precoProduto" class="form-control" step="0.01" required>
-                </div>
-                <!-- Categoria do Produto -->
-                <div class="mb-3 text-start">
-                    <label for="categoriaProduto" class="form-label">Categoria do Produto:</label>
-                    <select name="categoriaProduto" id="categoriaProduto" class="form-select text-dark" required>
-                        <option value="" disabled selected>Escolha uma categoria</option>
-                        <?php
-                        include_once("../classe/ListarCategorias.php");
-                        $listarCategorias = new ListarCategorias();
-                        $categorias = $listarCategorias->listarCategorias();
-                        foreach ($categorias as $categoria) {
-                            echo "<option value='" . htmlspecialchars($categoria['idCategory']) . "' class='text-dark'>" . htmlspecialchars($categoria['nameCategory']) . "</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <!-- Subcategoria do Produto -->
-                <div class="mb-3 text-start">
-                    <label for="subcategoriaProduto" class="form-label">Subcategoria do Produto:</label>
-                    <select name="subcategoriaProduto" id="subcategoriaProduto" class="form-select text-dark" required>
-                        <option value="" disabled selected>Escolha uma subcategoria</option>
-                        <?php
-                        include_once("../classe/ListarSubcategorias.php");
-                        $listarSubcategorias = new ListarSubcategorias();
-                        $subcategorias = $listarSubcategorias->listarSubcategorias();
-                        foreach ($subcategorias as $subcategoria) {
-                            echo "<option value='" . htmlspecialchars($subcategoria['idSubCategory']) . "'>" . htmlspecialchars($subcategoria['nameSubCategory']) . "</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <!-- Situação do Produto -->
-                <div class="mb-3 text-start">
-                    <label for="situacaoProduto" class="form-label">Situação do Produto:</label>
-                    <select name="situacaoProduto" id="situacaoProduto" class="form-select" required>
-                        <option value="" disabled selected>Escolha a situação</option>
-                        <option value="ATIVO">Ativo</option>
-                        <option value="INATIVO">Inativo</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" name="enviar" class="btn btn-dark">Adicionar Produto</button>
-            </div>
-        </form>
+            </form>
     </div>
 </div>
 </div>
@@ -206,18 +183,10 @@ if (isset($_GET['id'])) {
                 </div>
                 <!-- Seleção da Imagem -->
                 <div class="mb-3 text-start">
-                    <label for="editIdImage" class="form-label">Selecione a Imagem:</label>
-                    <select name="idImage" id="editIdImage" class="form-select">
-                        <option value="" disabled selected>Escolha uma imagem</option>
-                        <?php
-                        include_once("../classe/ListarImagens.php");
-                        $listarImagens = new ListarImagens();
-                        $imagens = $listarImagens->listarImagens();
-                        foreach ($imagens as $imagem) {
-                            echo "<option value='" . htmlspecialchars($imagem['idImage']) . "' data-url='" . htmlspecialchars($imagem['urlImage']) . "'>" . htmlspecialchars($imagem['nameImage']) . "</option>";
-                        }
-                        ?>
-                    </select>
+                <div class="text-start px-1 py-1 mb-1">
+                    <label for="addUrlImage" class="form-label">Imagem</label>
+                    <input type="file" class="form-control" id="addUrlImage" name="url">
+                </div>
                 </div>
                 <!-- Preview da Imagem Selecionada -->
                 <div class="mb-3 text-start">
@@ -249,21 +218,6 @@ if (isset($_GET['id'])) {
                         $categorias = $listarCategorias->listarCategorias();
                         foreach ($categorias as $categoria) {
                             echo "<option value='" . htmlspecialchars($categoria['idCategory']) . "'>" . htmlspecialchars($categoria['nameCategory']) . "</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <!-- Subcategoria do Produto -->
-                <div class="mb-3 text-start">
-                    <label for="editSubcategoriaProduto" class="form-label">Subcategoria do Produto:</label>
-                    <select name="subcategoriaProduto" id="editSubcategoriaProduto" class="form-select" required>
-                        <option value="" disabled selected>Escolha uma subcategoria</option>
-                        <?php
-                        include_once("../classe/ListarSubcategorias.php");
-                        $listarSubcategorias = new ListarSubcategorias();
-                        $subcategorias = $listarSubcategorias->listarSubcategorias();
-                        foreach ($subcategorias as $subcategoria) {
-                            echo "<option value='" . htmlspecialchars($subcategoria['idSubCategory']) . "'>" . htmlspecialchars($subcategoria['nameSubCategory']) . "</option>";
                         }
                         ?>
                     </select>
