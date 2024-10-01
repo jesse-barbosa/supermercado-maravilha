@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 01/10/2024 às 04:15
+-- Tempo de geração: 01/10/2024 às 15:31
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -33,6 +33,28 @@ CREATE TABLE `carts` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `name` char(30) NOT NULL,
+  `description` char(200) NOT NULL,
+  `status` char(10) NOT NULL DEFAULT 'ATIVO'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Despejando dados para a tabela `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `description`, `status`) VALUES
+(1, 'Eletrônicos', 'Produtos eletrônicos de última geração', 'ATIVO'),
+(2, 'Roupas', 'Vestuário para todas as idades', 'ATIVO'),
+(3, 'Brinquedos', 'Brinquedos para crianças de todas as idades', 'ATIVO');
 
 -- --------------------------------------------------------
 
@@ -73,8 +95,16 @@ CREATE TABLE `products` (
   `price` decimal(10,2) NOT NULL,
   `in_stock` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL
+  `category_id` int(11) NOT NULL,
+  `status` char(10) NOT NULL DEFAULT 'ATIVO'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Despejando dados para a tabela `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `in_stock`, `image`, `category_id`, `status`) VALUES
+(19, 'jose', 'jose', 37.00, 321, 'jose', 2, 'ATIVO');
 
 -- --------------------------------------------------------
 
@@ -94,6 +124,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
+-- Despejando dados para a tabela `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `password`, `access_level`, `email`, `cpf`, `phone`, `address`) VALUES
+(1, 'admin-master', '1234', '3', 'barbosajesse419@gmail.com', '11111111111', '33123456789', 'Vila São João, 123, MG');
+
+--
 -- Índices para tabelas despejadas
 --
 
@@ -104,6 +141,12 @@ ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `product_id` (`product_id`);
+
+--
+-- Índices de tabela `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `contact`
@@ -123,7 +166,8 @@ ALTER TABLE `orders`
 -- Índices de tabela `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_products_categories` (`category_id`);
 
 --
 -- Índices de tabela `users`
@@ -142,6 +186,12 @@ ALTER TABLE `carts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de tabela `contact`
 --
 ALTER TABLE `contact`
@@ -157,13 +207,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de tabela `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para tabelas despejadas
@@ -182,6 +232,12 @@ ALTER TABLE `carts`
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+
+--
+-- Restrições para tabelas `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `fk_products_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
