@@ -1,7 +1,7 @@
 <?php
-include_once("MinhaConexao.php");
+include_once("Conexao.php");
 
-class AlterarUsuario extends MinhaConexao {
+class AlterarUsuario extends Conexao {
     private $conn;
 
     public function __construct() {

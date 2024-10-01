@@ -1,8 +1,8 @@
 <?php
-include_once("MinhaConexao.php");
+include_once("Conexao.php");
 include_once("UploadImagem.php");
 
-class AdicionarImagem extends MinhaConexao {
+class AdicionarImagem extends Conexao {
 
     public function __construct() {
         parent::__construct();

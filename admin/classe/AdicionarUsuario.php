@@ -1,6 +1,6 @@
 <?php
-include_once("MinhaConexao.php");
-class Usuario extends MinhaConexao {
+include_once("Conexao.php");
+class Usuario extends Conexao {
 
     public function __construct(){
         parent::__construct();

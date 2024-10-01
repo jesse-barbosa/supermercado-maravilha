@@ -1,11 +1,11 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #eeeeee !important;
 }
 
 h2 {
     margin-bottom: 30px;
 }
-footer {
+.footer {
     position: absolute;
     bottom: 0;
     width: 100%;

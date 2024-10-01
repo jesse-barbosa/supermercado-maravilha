@@ -1,7 +1,7 @@
 <?php
-include_once("MinhaConexao.php");
+include_once("Conexao.php");
 
-class ListarSubCategorias extends MinhaConexao {
+class ListarSubCategorias extends Conexao {
     public function listarSubCategorias(): array
     {
         try {

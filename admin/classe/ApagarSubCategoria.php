@@ -1,7 +1,7 @@
 <?php
-include_once("MinhaConexao.php");
+include_once("Conexao.php");
 
-class ApagarSubCategoria extends MinhaConexao
+class ApagarSubCategoria extends Conexao
 {
     public function __construct()
     {

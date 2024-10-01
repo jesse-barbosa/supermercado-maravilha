@@ -1,11 +1,11 @@
 <?php
 /***********************************************************************************************************************
  * Classe que irá permitir ou negar o acesso ao painel de administrador.
- * Desenvolvedor: Diego Jardim da Silva
- * Data: 12 de agosto de 2024
+ * Desenvolvedor: Jessé Barbosa
+ * Data: 30 de Setembro de 2024
  */
-include_once("MinhaConexao.php");
-class VerificarLogin extends Minhaconexao
+include_once("Conexao.php");
+class VerificarLogin extends Conexao
 {
     /***** Declarar variáveis necessárias para tratar os dados de acesso *****/
     protected $nome, $senha, $usuarioLogado, $erro;
@@ -39,7 +39,7 @@ class VerificarLogin extends Minhaconexao
     public function verificarLogin()
     {
      try {
-        $sql = "SELECT * FROM users WHERE nameUser = '$this->nome' AND passwordUser = '$this->senha' AND statusUser = 'ativo' AND (typeUser = 'admin' OR typeUser = 'admin-master')";
+        $sql = "SELECT * FROM users WHERE name = '$this->nome' AND password = '$this->senha' AND (access_level = '3')";
         $query = self::execSql($sql);
         /***** Armazenar os dados encontrados *****/
         $resultado = self::listarDados($query);
@@ -62,7 +62,7 @@ class VerificarLogin extends Minhaconexao
             $_SESSION['senha'] = $this->senha;
             $_SESSION['typeUser'] = $resultado[0]['typeUser'];
             
-            header('Location: /TechPoint/admin/tela/index.php');
+            header('Location: /SuperMarket/admin/tela/index.php');
         }
      } catch (Exception $e) {
         echo "Erro: ".$e->getMessage();

@@ -1,7 +1,7 @@
 <?php
-include_once("MinhaConexao.php");
+include_once("Conexao.php");
 
-class AlterarSubCategoria extends MinhaConexao {
+class AlterarSubCategoria extends Conexao {
     private $conn;
 
     public function __construct() {

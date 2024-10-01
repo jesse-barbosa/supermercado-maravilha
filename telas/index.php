@@ -1,8 +1,8 @@
 <?php
-session_start();
-if (!isset($_SESSION['nome'])) {
-    header("Location: ../index.php");
-}
+// session_start();
+// if (!isset($_SESSION['nome'])) {
+//     header("Location: ../index.php");
+// }
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

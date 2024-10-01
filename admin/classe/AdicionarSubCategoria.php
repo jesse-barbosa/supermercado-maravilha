@@ -1,6 +1,6 @@
 <?php
-include_once("MinhaConexao.php");
-class SubCategoria extends MinhaConexao {
+include_once("Conexao.php");
+class SubCategoria extends Conexao {
     private $nome, $descricao, $situacao;
 
     public function __construct($nome, $descricao, $situacao){

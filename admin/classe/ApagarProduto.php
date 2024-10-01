@@ -1,7 +1,7 @@
 <?php
-include_once("MinhaConexao.php");
+include_once("Conexao.php");
 
-class ApagarProduto extends MinhaConexao {
+class ApagarProduto extends Conexao {
     public function __construct()
     {
         parent::__construct();

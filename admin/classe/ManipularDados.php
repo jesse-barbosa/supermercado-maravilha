@@ -1,6 +1,6 @@
 <?php
-include_once("MinhaConexao.php");
-class ManipularDados extends MinhaConexao{
+include_once("Conexao.php");
+class ManipularDados extends Conexao{
     protected $tabela,$campo,$campoId,$valorId,$dados,$status,$sql,$query;
     /**Método que recebe o nome da tebela para a construção de uma crud */
     private function getTabela(){

@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="text-center">Cadastro</h2>
-                <form>
+                <form action="telas/index.php" method="POST" class="form bg-white p-3 rounded-3">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome Completo</label>
                         <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo">
@@ -30,7 +30,7 @@
                         <label for="confirmar-senha" class="form-label">Confirmar Senha</label>
                         <input type="password" class="form-control" id="confirmar-senha" placeholder="Confirme sua senha">
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+                    <input type="submit" class="btn btn-primary w-100" value="Entrar"/>
                 </form>
                 <p class="mt-3 text-center">
                     Já tem uma conta? <a href="index.php">Faça login</a>

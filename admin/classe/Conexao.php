@@ -1,5 +1,5 @@
 <?php
-abstract class MinhaConexao
+abstract class Conexao
 {
     protected $servidor, $usuario, $senha, $banco, $conectar, $sql, $query, $dados, $totalDados;
 
@@ -9,7 +9,7 @@ abstract class MinhaConexao
         $this->servidor = "localhost";
         $this->usuario = "root";
         $this->senha = "";
-        $this->banco = "dbtechpoint";
+        $this->banco = "db_senactec";
         self::conectar();
     }
 
