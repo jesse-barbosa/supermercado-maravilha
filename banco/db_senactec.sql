@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 01/10/2024 às 03:53
+-- Tempo de geração: 01/10/2024 às 04:15
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -85,6 +85,7 @@ CREATE TABLE `products` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
+  `password` char(30) NOT NULL,
   `access_level` enum('0','1','2','3') NOT NULL,
   `email` varchar(255) NOT NULL,
   `cpf` varchar(11) NOT NULL,
