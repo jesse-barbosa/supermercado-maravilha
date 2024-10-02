@@ -4,7 +4,7 @@ include_once("../classe/VerificarLogin.php");
 include_once("../classe/TrocarUrl.php");
 
 $login = new VerificarLogin();
-if(isset($_SESSION['nome']) and isset($_SESSION['senha'])){
+if (isset($_SESSION['nome']) && isset($_SESSION['senha']) && ($_SESSION['access_level'] == 1 || $_SESSION['access_level'] == 2)) {
 	$_SESSION['nome'];
 	$_SESSION['senha'];
 ?>

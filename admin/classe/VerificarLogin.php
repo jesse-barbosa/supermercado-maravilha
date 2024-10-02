@@ -39,7 +39,7 @@ class VerificarLogin extends Conexao
     public function verificarLogin()
     {
      try {
-        $sql = "SELECT * FROM users WHERE name = '$this->nome' AND password = '$this->senha' AND (access_level = '3')";
+        $sql = "SELECT * FROM users WHERE name = '$this->nome' AND password = '$this->senha' AND (access_level = '1' OR access_level = '2')";
         $query = self::execSql($sql);
         /***** Armazenar os dados encontrados *****/
         $resultado = self::listarDados($query);
@@ -60,7 +60,7 @@ class VerificarLogin extends Conexao
             /**** Armazenando os dados do usuário (na super global $_SESSION) em uma sessão para que possam ser acessados em outras páginas do site  *****/
             $_SESSION['nome'] = $this->nome;
             $_SESSION['senha'] = $this->senha;
-            $_SESSION['typeUser'] = $resultado[0]['typeUser'];
+            $_SESSION['access_level'] = $resultado[0]['access_level'];
             
             header('Location: /supermarket/admin/tela/index.php?tela=');
         }
