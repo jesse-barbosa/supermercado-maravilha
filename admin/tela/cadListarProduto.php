@@ -1,6 +1,6 @@
 <?php
 // Adicionar
-include_once("../classe/AdicionarProduto.php");
+include_once("../classe/AdicionarItem.php");
 
 if (isset($_POST['enviar'])) {
     $nome = $_POST['nomeProduto'];
@@ -8,16 +8,16 @@ if (isset($_POST['enviar'])) {
     $quantidade = $_POST['quantidadeProduto'];
     $preco = $_POST['precoProduto'];
     $categoria = $_POST['categoriaProduto'];
-    $situacao = $_POST['situacaoProduto']; // Captura a situação
+    $situacao = $_POST['situacaoProduto'];
 
-    $imagem = $_FILES['url']; // A imagem deve ser capturada a partir de $_FILES
+    $imagem = $_FILES['url'];
 
-    $adicionarProduto = new AdicionarProduto();
+    $adicionarProduto = new Adicionar();
     $adicionarProduto->adicionarProduto($nome, $descricao, $quantidade, $preco, $categoria, $imagem, $situacao);
 }
 
 // Editar
-include_once("../classe/AlterarProduto.php");
+include_once("../classe/AlterarItem.php");
 
 if (isset($_POST['editar'])) {
     $idProduto = $_POST['idProduto'];
@@ -30,17 +30,17 @@ if (isset($_POST['editar'])) {
 
     @$idImage = $_POST['idImage'];
 
-    $produto = new AlterarProduto();
+    $produto = new Alterar();
     $produto->alterarProduto($idProduto, $nome, $descricao, $quantidade, $preco, $categoria, $situacao, $idImage);
 }
 
 // Apagar
-include_once("../classe/ApagarProduto.php");
+include_once("../classe/ApagarItem.php");
 
 if (isset($_GET['id'])) {
     $idProduto = $_GET['id'];
     
-    $apagar = new ApagarProduto();
+    $apagar = new Apagar();
     $apagar->apagarProduto($idProduto);
 }
 
@@ -50,7 +50,7 @@ if (isset($_GET['id'])) {
     <div class="container">
         <div class="row">
             <div class="col align-content-around">
-                <div class="lead fs-3 fw-semibold">Produtos Cadastrados</div>
+                <div class="lead fs-3 fw-medium">Produtos Cadastrados</div>
             </div>
             <div class="col-3 text-end">
                 <!-- Button trigger modal -->
@@ -105,6 +105,21 @@ if (isset($_GET['id'])) {
                         <label for="nomeProduto" class="form-label">Nome do Produto:</label>
                         <input type="text" name="nomeProduto" id="nomeProduto" class="form-control" required>
                     </div>
+                    <!-- Descrição do Produto -->
+                    <div class="mb-3 text-start">
+                        <label for="descricaoProduto" class="form-label">Descrição do Produto:</label>
+                        <textarea name="descricaoProduto" id="descricaoProduto" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <!-- Preço do Produto -->
+                    <div class="mb-3 text-start">
+                        <label for="precoProduto" class="form-label">Preço do Produto:</label>
+                        <input type="number" name="precoProduto" id="precoProduto" class="form-control" step="0.01" required>
+                    </div>
+                    <!-- Quantidade do Produto -->
+                    <div class="mb-3 text-start">
+                        <label for="quantidadeProduto" class="form-label">Quantidade do Produto:</label>
+                        <input type="number" name="quantidadeProduto" id="quantidadeProduto" class="form-control" required>
+                    </div>
                     <!-- Seleção da Imagem -->
                     <div class="mb-3 text-start">
                         <label for="addIdImage" class="form-label">Selecione a Imagem:</label>
@@ -117,21 +132,7 @@ if (isset($_GET['id'])) {
                     <div class="mb-3 text-start">
                         <img class="addImagemPreview img-fluid" src="" alt="Preview da Imagem Selecionada">
                     </div>
-                    <!-- Descrição do Produto -->
-                    <div class="mb-3 text-start">
-                        <label for="descricaoProduto" class="form-label">Descrição do Produto:</label>
-                        <textarea name="descricaoProduto" id="descricaoProduto" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <!-- Quantidade do Produto -->
-                    <div class="mb-3 text-start">
-                        <label for="quantidadeProduto" class="form-label">Quantidade do Produto:</label>
-                        <input type="number" name="quantidadeProduto" id="quantidadeProduto" class="form-control" required>
-                    </div>
-                    <!-- Preço do Produto -->
-                    <div class="mb-3 text-start">
-                        <label for="precoProduto" class="form-label">Preço do Produto:</label>
-                        <input type="number" name="precoProduto" id="precoProduto" class="form-control" step="0.01" required>
-                    </div>
+
                     <!-- Categoria do Produto -->
                     <div class="mb-3 text-start">
                         <label for="categoriaProduto" class="form-label">Categoria do Produto:</label>
@@ -159,8 +160,7 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" name="enviar" class="btn btn-primary">Adicionar Produto</button>
+                    <button type="submit" name="enviar" class="btn btn-dark form-control">Adicionar Produto</button>
                 </div>
             </form>
     </div>
@@ -218,8 +218,7 @@ if (isset($_GET['id'])) {
                     $listarCategorias = new ListarCategorias();
                     $categorias = $listarCategorias->listarCategorias();
                     foreach ($categorias as $categoria) {
-                        // Certifique-se que 'id' e 'name' são os índices corretos
-                        echo "<option value='" . htmlspecialchars($categoria['id']) . "'>" . htmlspecialchars($categoria['name']) . "</option>";
+                        echo "<option value='" . $categoria['id'] . "'>" . $categoria['name']  . "</option>";
                     }
                     ?>
                     </select>
@@ -266,23 +265,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Atualizar o modal de edição ao clicar no botão de edição
     document.querySelectorAll('.bi-pencil').forEach(button => {
         button.addEventListener('click', function () {
-            const idProduto = this.dataset.id;
-            const nomeProduto = this.dataset.nome;
-            const precoProduto = this.dataset.preco;
-            const descricaoProduto = this.dataset.descricao;
-            const quantidadeProduto = this.dataset.quantidade;
             const urlImagem = this.dataset.url;
-            const categoriaProduto = this.dataset.categoria;
-            const situacaoProduto = this.dataset.situacao;
 
             // Preencher os campos do modal com os valores
-            document.getElementById('editIdProduto').value = idProduto;
-            document.getElementById('editNomeProduto').value = nomeProduto;
-            document.getElementById('editPrecoProduto').value = precoProduto;
-            document.getElementById('editDescricaoProduto').value = descricaoProduto;
-            document.getElementById('editQuantidadeProduto').value = quantidadeProduto;
-            document.getElementById('editCategoriaProduto').value = categoriaProduto;
-            document.getElementById('editSituacaoProduto').value = situacaoProduto;
+            document.getElementById('editIdProduto').value = this.dataset.id;
+            document.getElementById('editNomeProduto').value = this.dataset.nome;
+            document.getElementById('editPrecoProduto').value = this.dataset.preco;
+            document.getElementById('editDescricaoProduto').value = this.dataset.descricao;
+            document.getElementById('editQuantidadeProduto').value = this.dataset.quantidade;
+            document.getElementById('editCategoriaProduto').value = this.dataset.categoria;
+            document.getElementById('editSituacaoProduto').value = this.dataset.situacao;
 
             // Atualizar o preview da imagem
             if (urlImagem) {

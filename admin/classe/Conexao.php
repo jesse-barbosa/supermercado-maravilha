@@ -9,7 +9,7 @@ abstract class Conexao
         $this->servidor = "localhost";
         $this->usuario = "root";
         $this->senha = "";
-        $this->banco = "db_senactec";
+        $this->banco = "dbsupermarket";
         self::conectar();
     }
 

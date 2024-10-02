@@ -1,6 +1,6 @@
 <?php
 // Adicionar
-include_once("../classe/AdicionarCategoria.php");
+include_once("../classe/AdicionarItem.php");
 
 if(isset($_POST['enviar'])){
     $nome = $_POST['nome'];
@@ -8,15 +8,15 @@ if(isset($_POST['enviar'])){
     $situacao = $_POST['situacao'];
     
     if(isset($_POST['nome'])){
-        $categoria = new Categoria($nome, $descricao, $situacao);
-        $categoria->adicionarCategoria();
+        $categoria = new Adicionar();
+        $categoria->adicionarCategoria($nome, $descricao, $situacao);
     
     } else {
         echo "Nome não foi enviado.";
     }
 }
 // Editar
-include_once("../classe/AlterarCategoria.php");
+include_once("../classe/AlterarItem.php");
 
 if (isset($_POST['editar'])) {
     $idCategoria = $_POST['idCategoria'];
@@ -24,16 +24,16 @@ if (isset($_POST['editar'])) {
     $descricao = $_POST['descricao'];
     $situacao = $_POST['situacao'];
 
-    $categoria = new AlterarCategoria();
+    $categoria = new Alterar();
     $categoria->alterarCategoria($idCategoria, $nome, $descricao, $situacao);
 }
 
 // Apagar
-include_once("../classe/ApagarCategoria.php");
+include_once("../classe/ApagarItem.php");
 
 if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idCategoria'])) {
     $idCategoria = intval($_GET['idCategoria']);
-    $apagarCategoria = new ApagarCategoria();
+    $apagarCategoria = new Apagar();
     $apagarCategoria->apagarCategoria($idCategoria);
 }
 ?>
@@ -42,7 +42,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idCat
     <div class="container">
         <div class="row">
             <div class="col align-content-around">
-                <div class="lead fs-3 fw-semibold">Categorias Cadastradas</div>
+                <div class="lead fs-3 fw-medium">Categorias Cadastradas</div>
             </div>
             <div class="col-3 text-end">
                 <!-- Button trigger modal -->
@@ -99,12 +99,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idCat
                     <div class="text-start border px-1 py-1 mb-1">
                         <input type="text" name="descricao" class="input border-0 py-1" placeholder="Descrição" required>
                     </div>
-                    <div class="text-start border px-1 py-1 mb-1">
-                        <select name="situacao" class="form-select border-0" required>
-                            <option value='ATIVO'>ATIVO</option>
-                            <option value='DESATIVO'>DESATIVO</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="modal-footer border-0">
                     <button type="submit" name="enviar" class="btn btn-dark form-control fw-medium">Adicionar</button>
@@ -131,13 +125,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idCat
                     <div class="mb-3">
                         <label for="editDescricaoCategoria" class="form-label">Descrição</label>
                         <input type="text" class="form-control" id="editDescricaoCategoria" name="descricao" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="editSituacaoCategoria" class="form-label">Situação</label>
-                        <select class="form-select" id="editSituacaoCategoria" name="situacao" required>
-                            <option value='ATIVO'>ATIVO</option>
-                            <option value='DESATIVO'>DESATIVO</option>
-                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

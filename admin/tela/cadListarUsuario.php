@@ -1,6 +1,6 @@
 <?php
 // Adicionar
-include_once("../classe/AdicionarUsuario.php");
+include_once("../classe/AdicionarItems.php");
 
 if (isset($_POST['enviar'])) {
     $nome = $_POST['nome'];
@@ -9,11 +9,11 @@ if (isset($_POST['enviar'])) {
     $typeUser = $_POST['typeUser'];
     $situacao = $_POST['situacao'];
 
-    $usuario = new Usuario();
+    $usuario = new Adicionar();
     $usuario->adicionarUsuario($nome, $email, $senha, $typeUser, $situacao);
 }
 // Editar
-include_once("../classe/AlterarUsuario.php");
+include_once("../classe/AlterarItem.php");
 
 if (isset($_POST['editar'])) {
     $idUsuario = $_POST['idUsuario'];
@@ -23,19 +23,19 @@ if (isset($_POST['editar'])) {
     $situacao = $_POST['situacao'];
     $typeUser = $_POST['typeUser'];
 
-    $usuario = new AlterarUsuario();
+    $usuario = new Alterar();
 
-    $usuario->alterarUsuario($idUsuario, $nome, $email, $senha, $situacao, $typeUser);
+    $usuario->alterarUsuario($idUsuario, $nome, $email, $senha, $accessLevel, $cpf, $phone, $situacao);
 
     echo "<script>window.location.href = 'index.php?tela=cadListarUsuario';</script>";
 }
 
 // Apagar
-include_once("../classe/ApagarUsuario.php");
+include_once("../classe/ApagarItem.php");
 
 if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsuario'])) {
     $idUsuario = intval($_GET['idUsuario']);
-    $apagarUsuario = new ApagarUsuario();
+    $apagarUsuario = new Apagar();
     $apagarUsuario->apagarUsuario($idUsuario);
     }
 ?>
@@ -45,7 +45,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
     <div class="container">
         <div class="row">
             <div class="col align-content-around">
-                <div class="lead fs-3 fw-semibold">Usuários Cadastrados</div>
+                <div class="lead fs-3 fw-medium">Usuários Cadastrados</div>
             </div>
             <div class="col-3 text-end">
                 <!-- Button trigger modal -->
@@ -118,11 +118,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="typeUser" class="form-label">Tipo</label>
-                    <select class="form-select" id="typeUser" name="typeUser" required>
-                        <option value='default'>Default</option>
-                        <option value='admin'>Admin</option>
-                        <option value='admin-master'>Admin-Master</option>
+                    <label for="editTypeUser" class="form-label">Tipo</label>
+                    <select class="form-select" id="editTypeUser" name="typeUser" required>
+                        <option value='0'>Default</option>
+                        <option value='1'>Admin</option>
+                        <option value='2'>Admin-Master</option>
                     </select>
                 </div>
             </div>
@@ -166,9 +166,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
                     <div class="mb-3">
                         <label for="editTypeUser" class="form-label">Tipo</label>
                         <select class="form-select" id="editTypeUser" name="typeUser" required>
-                            <option value='default'>Default</option>
-                            <option value='admin'>Admin</option>
-                            <option value='admin-master'>Admin-Master</option>
+                            <option value='0'>Default</option>
+                            <option value='1'>Admin</option>
+                            <option value='2'>Admin-Master</option>
                         </select>
                     </div>
                 </div>

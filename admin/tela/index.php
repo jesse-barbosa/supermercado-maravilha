@@ -16,14 +16,16 @@ if(isset($_SESSION['nome']) and isset($_SESSION['senha'])){
 <body>
     <div class="container-fluid">
         <div class="row d-flex flex-row">
-            <div class="col-1 col-md-2 bg-light p-0 rounded-5">
+            <div class="col-2 p-0 rounded-5 ">
                 <?php include_once("../include/menu.php");?>
             </div>
-            <div class="col-10 vh-100 bg-gray p-0">
+            <div class="col-10 vh-100 p-0">
+                <div class="main my-1 p-2 h-100 rounded-3 bg-white">
                 <?php 
                 $url = new TrocarUrl();
                 $url->trocarUrl(@$_GET["tela"]);
                 ?>
+                </div>
             </div>
         </div>
     </div>
@@ -39,6 +41,6 @@ if(isset($_SESSION['nome']) and isset($_SESSION['senha'])){
  }else{
     unset($_SESSION["nome"]);
     unset($_SESSION["senha"]);
-     header("Location: /TechPoint/admin/index.php");
+     header("Location: /supermarket/admin/index.php");
      }
 ?>

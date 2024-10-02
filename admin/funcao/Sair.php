@@ -10,6 +10,6 @@ session_start();
 if(isset($_SESSION['nome']) and isset($_SESSION['senha'])){
     unset($_SESSION['nome']);
     unset($_SESSION['senha']);
-    header('Location: /supermarket-senactec/index.php');
+    header('Location: /supermarket/index.php');
 }
 ?>

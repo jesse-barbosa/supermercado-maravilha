@@ -50,7 +50,6 @@ class MostrarCategorias extends CriaPaginacao {
                             <th class='text-secondary fw-lighter'>ID</th>
                             <th class='text-secondary fw-lighter'>Nome</th>
                             <th class='text-secondary fw-lighter'>Descrição</th>
-                            <th class='text-secondary fw-lighter'>Situação</th>
                             <th width='30'></th>
                             <th width='30'></th>
                         </tr>

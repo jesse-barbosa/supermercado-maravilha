@@ -1,5 +1,5 @@
 <?php
-abstract class MinhaConexao
+abstract class Conexao
 {
     protected $servidor, $usuario, $senha, $banco, $conectar, $sql, $query, $dados, $totalDados;
     /**Método construtor para realizar uma conexão no banco de dados, este método será executado automaticamente sempre que esta classe for herdada */
@@ -8,7 +8,7 @@ abstract class MinhaConexao
         $this->servidor = "localhost";
         $this->usuario = "root";
         $this->senha = "";
-        $this->banco = "db_senactec";
+        $this->banco = "dbsupermarket";
         self::conectar();
     }
     /**Método que recebe os dados necessários para realizar uma conexão ao banco e executa o comando */

@@ -57,7 +57,6 @@ class MostrarUsuarios extends criaPaginacao {
                             <th class='text-secondary fw-lighter'>Email</th>
                             <th class='text-secondary fw-lighter'>CPF</th>
                             <th class='text-secondary fw-lighter'>Telefone</th>
-                            <th class='text-secondary fw-lighter'>Endereço</th>
                             <th class='text-secondary fw-lighter'>Situação</th>
                             <th width='30'></th>
                             <th width='30'></th>
@@ -75,7 +74,6 @@ class MostrarUsuarios extends criaPaginacao {
                         echo "<td class='fw-lighter'>".$resultado['email']."</td>";
                         echo "<td class='fw-lighter'>".$resultado['cpf']."</td>";
                         echo "<td class='fw-lighter'>".$resultado['phone']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['address']."</td>";
                         echo "<td class='fw-lighter'>".$resultado['status']."</td>";
                         echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-id='".$resultado['id']."' data-nome='".$resultado['name']."' data-email='".$resultado['email']."' data-situacao='".$resultado['status']."' data-type='".$resultado['access_level']."'></a></td>";
                         echo "<td><a href='#' class='bi bi-trash btn btn-dark' data-id='".$resultado['id']."'></a></td>";
