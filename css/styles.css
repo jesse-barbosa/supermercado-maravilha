@@ -1,12 +1,13 @@
 body {
-    background-color: #eeeeee !important;
+  background-color: #eeeeee !important;
 }
 
 h2 {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
+
 .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
