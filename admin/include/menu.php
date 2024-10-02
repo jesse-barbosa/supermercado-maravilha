@@ -14,7 +14,7 @@
         <a class="menu-link <?php echo ($_GET['tela'] == 'cadListarProduto') ? 'active' : ''; ?>" href="?tela=cadListarProduto"><li class="nav-item"> 
             <i class="bi bi-cart"></i> Produtos
         </li></a>
-        <a class="menu-link <?php echo ($_GET['tela'] == 'cadListarPedidos') ? 'active' : ''; ?>" href="?tela=cadListarPedidos"><li class="nav-item"> 
+        <a class="menu-link <?php echo ($_GET['tela'] == 'cadListarPedido') ? 'active' : ''; ?>" href="?tela=cadListarPedido"><li class="nav-item"> 
             <i class="bi bi-currency-exchange"></i> Pedidos
         </li></a>
         <a class="menu-link <?php echo ($_GET['tela'] == 'cadListarCategoria') ? 'active' : ''; ?>" href="?tela=cadListarCategoria"><li class="nav-item"> 

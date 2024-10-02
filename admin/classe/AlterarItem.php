@@ -56,6 +56,24 @@ class Alterar extends Conexao {
             return "Erro: " . $e->getMessage();
         }
     }
+    public function alterarPedido($idPedido, $userId, $productId, $quantidade, $situacao){
+        try {
+            $sql = "UPDATE orders SET user_id = ?, product_id = ?, quantity = ?, status = ? WHERE id = ?";
+            $stmt = $this->getConnection()->prepare($sql);
+            $stmt->bind_param("iiisi", $userId, $productId, $quantidade, $situacao, $idPedido);
+    
+            // Executa o SQL e retorna o resultado da operação
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                echo "Erro ao atualizar pedido: " . $stmt->error;  // Mostra o erro, se houver
+                return false;
+            }
+        } catch (Exception $e) {
+            echo "Erro: " . $e->getMessage();  // Mostra o erro, se houver
+        }
+    }
+    
     public function alterarUsuario($idUsuario, $nome, $email, $senha = null, $access_level, $cpf, $phone, $situacao) {
         try {
             if ($senha) {

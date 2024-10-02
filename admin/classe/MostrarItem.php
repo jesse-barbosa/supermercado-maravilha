@@ -174,6 +174,111 @@ class Mostrar extends CriaPaginacao {
             echo "Erro ao mostrar os produtos: " . $e->getMessage();
         }
     }
+    public function totalPedidos() {
+        try {
+            $sql = "SELECT COUNT(*) as total FROM orders";
+            $query = self::execSql($sql);
+            $resultado = self::listarDados($query);
+            return $resultado[0]['total'];
+        } catch (Exception $e) {
+            echo "Erro ao contar os pedidos: " . $e->getMessage();
+        }
+    }
+
+    public function mostrarPedidos() {
+        try {
+            $sql = "
+            SELECT
+                o.id,
+                o.user_id,
+                o.product_id,
+                o.quantity,
+                o.status,
+                u.name as nameUser,
+                u.id as idUser,
+                p.id as idProduct,
+                p.name as nameProduct,
+                p.price as priceProduct,
+                p.image as urlImage
+            FROM 
+                orders o
+            LEFT JOIN users u ON o.user_id = u.id
+            LEFT JOIN products p ON o.product_id = p.id";
+        
+            // Configurações de paginação
+            $this->setParametro($this->strNumPagina);
+            $this->setFileName($this->strUrl);
+            $this->setInfoMaxPag(5);
+            $this->setMaximoLinks(9);
+            $this->setSQL($sql);
+            $this->iniciaPaginacao();
+        
+            $produtos = $this->results();
+        
+            if (count($produtos) > 0) {
+                echo "
+                <table class='table table-hover'>
+                    <thead>
+                        <tr class='text-center'>
+                            <th class='text-secondary fw-light'>ID</th>
+                            <th class='text-secondary fw-light'>Usuário</th>
+                            <th class='text-secondary fw-light'>Produto</th>
+                            <th class='text-secondary fw-light'>Imagem</th>
+                            <th class='text-secondary fw-light'>Quantidade</th>
+                            <th class='text-secondary fw-light'>Situação</th>
+                            <th width='30'></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                ";
+                foreach ($produtos as $resultado) {
+                    echo "<tr class='text-center'>";
+                        echo "<td class='fw-light text-dark'>" . $resultado['id'] . "</td>";
+                        echo "<td class='fw-light text-dark'>" . $resultado['nameUser'] . "</td>";
+                        echo "<td class='fw-light text-dark'>" . $resultado['nameProduct'] . "</td>";
+                        if (!empty($resultado['urlImage'])) {
+                            echo "<td class='fw-light text-dark'><img src='" . $resultado['urlImage'] . "' class='h-25 w-25' alt='Imagem do Produto'/></td>";
+                        } else {
+                            echo "<td class='fw-light text-dark'>Sem imagem</td>";
+                        }
+                        echo "<td class='fw-light text-dark'>" . $resultado['quantity'] . "</td>";
+                        $status = '';
+                        switch($resultado['status']){
+                            case 0:
+                                $status = "Pendente";
+                                break;
+                            case 1:
+                                $status = "Confirmado";
+                                break;
+                            case 2:
+                                $status = "Cancelado";
+                                break;
+                            default:
+                                $status = "Sem status";
+                                break;
+                        }
+                        echo "<td class='fw-light text-dark'>" . $status . "</td>";
+                        echo "<td><a href='#' class='bi bi-pencil text-black fs-5' 
+                        data-bs-toggle='modal' 
+                        data-bs-target='#editProductModal' 
+                        data-id='" . $resultado['id'] . "'
+                        data-userid='" . $resultado['user_id'] . "'
+                        data-productid='" . $resultado['product_id'] . "'
+                        data-quantity='" . $resultado['quantity'] . "'
+                        data-status='" . $resultado['status'] . "'";
+                    echo "</tr>";
+                }
+                echo "
+                    </tbody>
+                </table>
+                ";
+            } else {
+                echo "<p class='text-center text-dark pt-2'>Nenhum pedido solicitado.</p>";
+            }
+        } catch (Exception $e) {
+            echo "Erro ao mostrar os pedidos: " . $e->getMessage();
+        }
+    }
     public function totalUsuarios() {
         try {
             $sql = "SELECT COUNT(*) as total FROM users";
