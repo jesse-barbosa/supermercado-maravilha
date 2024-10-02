@@ -19,16 +19,14 @@
             <li><a class="dropdown-item" href="#">Categoria 2</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-secondary opacity-75 fw-semibold mx-3" href="#">PROMOÇÕES</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-secondary opacity-75 fw-semibold mx-3" href="#">CONTATO</a>
-        </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">
+      <form class="d-flex w-25" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
       </form>
+      <div class="icons">
+          <i class="bi bi-cart2 fs-2 me-2"></i>
+          <i class="bi bi-person-circle fs-2"></i>
+      </div>
     </div>
   </div>
 </nav>

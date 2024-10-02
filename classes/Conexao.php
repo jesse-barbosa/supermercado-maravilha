@@ -8,7 +8,7 @@ abstract class MinhaConexao
         $this->servidor = "localhost";
         $this->usuario = "root";
         $this->senha = "";
-        $this->banco = "dbprojetosenactec";
+        $this->banco = "db_senactec";
         self::conectar();
     }
     /**Método que recebe os dados necessários para realizar uma conexão ao banco e executa o comando */

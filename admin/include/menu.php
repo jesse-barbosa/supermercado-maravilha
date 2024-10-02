@@ -20,19 +20,12 @@
     </li></a>
     <a class="d-none d-md-inline-block link-underline link-underline-opacity-0 link-dark link-opacity-75-hover"
             href="?tela=cadListarCategoria"><li class="nav-item bg-light pt-4 ps-3">
-        <i class="bi bi-bookmark ps-4 pe-2"></i> Categorias
+        <i class="bi bi-currency-exchange ps-4 pe-2"></i> Pedidos
     </li></a>
     <a class="d-none d-md-inline-block link-underline link-underline-opacity-0 link-dark link-opacity-75-hover"
-            href="?tela=cadListarBanners"><li class="nav-item bg-light pt-4 ps-3">
-        <i class="bi bi-card-image ps-4 pe-2"></i> Banners
+            href="?tela=cadListarCategoria"><li class="nav-item bg-light pt-4 ps-3">
+        <i class="bi bi-bookmark ps-4 pe-2"></i> Categorias
     </li></a>
-    <!-- Intens para relatório -->
-    <li class="nav-item bg-light pt-4 ps-3">
-        <a class="col-sm-2 d-md-none link-dark link-opacity-75-hover" href="?tela=relatorioContato"><i
-                class="bi bi-person-rolodex"></i></a>
-        <a class="d-none d-md-inline-block link-underline link-underline-opacity-0 link-dark link-opacity-75-hover"
-            href="?tela=relContato"><i class="bi bi-person-rolodex ps-4 pe-2"></i> Contato</a>
-    </li>
     <!-- Intens para administrador -->
     <a class="d-none d-md-inline-block link-underline link-underline-opacity-0 link-dark link-opacity-75-hover"
             href="?tela=cadListarUsuario"><li class="nav-item bg-light pt-4 ps-3">

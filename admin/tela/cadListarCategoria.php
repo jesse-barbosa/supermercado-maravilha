@@ -42,7 +42,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idCat
     <div class="container">
         <div class="row">
             <div class="col align-content-around">
-                <div class="lead fs-3">Categorias Cadastradas</div>
+                <div class="lead fs-3 fw-semibold">Categorias Cadastradas</div>
             </div>
             <div class="col-3 text-end">
                 <!-- Button trigger modal -->

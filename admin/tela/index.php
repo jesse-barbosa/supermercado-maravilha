@@ -1,5 +1,5 @@
 <?php session_start();
-include_once("../classe/MinhaConexao.php");
+include_once("../classe/Conexao.php");
 include_once("../classe/VerificarLogin.php");
 include_once("../classe/TrocarUrl.php");
 

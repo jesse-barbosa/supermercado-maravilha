@@ -11,7 +11,7 @@ class ApagarUsuario extends Conexao {
 
     public function apagarUsuario($idUsuario) {
         try {
-            $sql = "UPDATE users SET deletedUser = 1 WHERE idUser = ?";
+            $sql = "DELETE FROM users WHERE id = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("i", $idUsuario);
 

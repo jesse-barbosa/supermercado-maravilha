@@ -45,7 +45,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
     <div class="container">
         <div class="row">
             <div class="col align-content-around">
-                <div class="lead fs-3">Usuários Cadastrados</div>
+                <div class="lead fs-3 fw-semibold">Usuários Cadastrados</div>
             </div>
             <div class="col-3 text-end">
                 <!-- Button trigger modal -->

@@ -15,12 +15,6 @@
                 </ul>
             </div>
             <div class="col-md-3">
-                <h5 class="fw-semibold">Contato</h5>
-                <li class="text-dark"><i class="bi bi-telephone-fill me-1"></i> (11) 1234-5678</li>
-                <li class="text-dark"><i class="bi bi-envelope-fill me-1"></i> contato@supermercado.com.br</li>
-                <li class="text-dark"><i class="bi bi-geo-alt-fill me-1"></i> Rua dos Supermercados, 123 - Centro</li>
-            </div>
-            <div class="col-md-3">
                 <h5 class="fw-semibold">Redes Sociais</h5>
                 <div class="mt-2">
                     <a href="#" class="text-black opacity-75 me-2 fs-5"><i class="bi bi-facebook"></i></a>

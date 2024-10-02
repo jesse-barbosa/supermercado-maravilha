@@ -50,15 +50,15 @@ class MostrarUsuarios extends criaPaginacao {
                 <table class='table table-hover'>
                     <thead>
                         <tr class='text-center'>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Senha</th>
-                            <th>Acesso</th>
-                            <th>Email</th>
-                            <th>CPF</th>
-                            <th>Telefone</th>
-                            <th>Endereço</th>
-                            <th>Situação</th>
+                            <th class='text-secondary fw-lighter'>ID</th>
+                            <th class='text-secondary fw-lighter'>Nome</th>
+                            <th class='text-secondary fw-lighter'>Senha</th>
+                            <th class='text-secondary fw-lighter'>Acesso</th>
+                            <th class='text-secondary fw-lighter'>Email</th>
+                            <th class='text-secondary fw-lighter'>CPF</th>
+                            <th class='text-secondary fw-lighter'>Telefone</th>
+                            <th class='text-secondary fw-lighter'>Endereço</th>
+                            <th class='text-secondary fw-lighter'>Situação</th>
                             <th width='30'></th>
                             <th width='30'></th>
                         </tr>

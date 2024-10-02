@@ -11,7 +11,7 @@ class Usuario extends Conexao {
         try {
 
             // Insere os dados no banco de dados usando o método execSql
-            $sql = "INSERT INTO users (nameUser, emailUser, passwordUser, typeUser, statusUser)
+            $sql = "INSERT INTO users (name, email, password, typeUser, statusUser)
              VALUES ('$nome', '$email', '$senha', '$typeUser', '$situacao')";
             
             if ($this->execSql($sql)) {

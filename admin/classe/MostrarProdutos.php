@@ -79,20 +79,29 @@ class MostrarProdutos extends CriaPaginacao {
                 ";
                 foreach ($produtos as $resultado) {
                     echo "<tr class='text-center'>";
-                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['idProduct']) . "</td>";
-                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['nameProduct']) . "</td>";
-                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['descProduct']) . "</td>";
-                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['priceProduct']) . "</td>";
-                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['quantProduct']) . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . $resultado['idProduct'] . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . $resultado['nameProduct'] . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . $resultado['descProduct'] . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . $resultado['priceProduct'] . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . $resultado['quantProduct'] . "</td>";
                         if (!empty($resultado['urlImage'])) {
-                            echo "<td class='fw-normal text-dark'><img src='" . htmlspecialchars($resultado['urlImage']) . "' class='h-25 w-25' alt='Imagem do Produto'/></td>";
+                            echo "<td class='fw-normal text-dark'><img src='" . $resultado['urlImage'] . "' class='h-25 w-25' alt='Imagem do Produto'/></td>";
                         } else {
                             echo "<td class='fw-normal text-dark'>Sem imagem</td>";
                         }
-                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['nameCategory']) . "</td>";
-                        echo "<td class='fw-normal text-dark'>" . htmlspecialchars($resultado['statusProduct']) . "</td>";
-                        echo "<td><a href='#' class='bi bi-pencil text-black fs-5' data-bs-toggle='modal' data-bs-target='#editProductModal' data-id='" . htmlspecialchars($resultado['idProduct']) . "' data-url='" . htmlspecialchars($resultado['urlImage']) . "' data-nome='" . htmlspecialchars($resultado['nameProduct']) . "' data-descricao='" . htmlspecialchars($resultado['descProduct']) . "' data-quantidade='" . htmlspecialchars($resultado['quantProduct']) . "' data-preco='" . htmlspecialchars($resultado['priceProduct']) . "'></a></td>";
-                        echo "<td><a href='#' class='bi bi-trash text-black fs-5' data-id='" . htmlspecialchars($resultado['idProduct']) . "'></a></td>";
+                        echo "<td class='fw-normal text-dark'>" . $resultado['nameCategory'] . "</td>";
+                        echo "<td class='fw-normal text-dark'>" . $resultado['statusProduct'] . "</td>";
+                        echo "<td><a href='#' class='bi bi-pencil text-black fs-5' 
+                        data-bs-toggle='modal' 
+                        data-bs-target='#editProductModal' 
+                        data-id='" . $resultado['idProduct'] . "' 
+                        data-url='" . $resultado['urlImage'] . "' 
+                        data-nome='" . $resultado['nameProduct'] . "' 
+                        data-descricao='" . $resultado['descProduct'] . "' 
+                        data-quantidade='" . $resultado['quantProduct'] . "' 
+                        data-preco='" . $resultado['priceProduct'] . "' 
+                        data-categoria='" . $resultado['nameCategory'] . "'></a></td>";
+                        echo "<td><a href='#' class='bi bi-trash text-black fs-5' data-id='" . $resultado['idProduct'] . "'></a></td>";
                     echo "</tr>";
                 }
                 echo "

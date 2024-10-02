@@ -59,12 +59,11 @@
     <hr class="mt-4">
     <div class="container-fluid mt-5">
         <div class="row">
-            <h3 class="fw-semibold mb-4">Total Registros</h3>
+            <h3 class="mb-4 text-secondary fw-lighter">Total Registros</h3>
             <?php
             $cards = [
                 ['icon' => 'bi-pc-display', 'class' => 'MostrarProdutos', 'method' => 'totalProdutos', 'label' => 'Total de Produtos'],
                 ['icon' => 'bi-bookmark', 'class' => 'MostrarCategorias', 'method' => 'totalCategorias', 'label' => 'Total de Categorias'],
-                ['icon' => 'bi-image', 'class' => 'MostrarBanners', 'method' => 'totalBanners', 'label' => 'Total de Banners'],
                 ['icon' => 'bi-person', 'class' => 'MostrarUsuarios', 'method' => 'totalUsuarios', 'label' => 'Total de Usuários']
             ];
 
@@ -72,10 +71,10 @@
                 echo '<div class="col-md-2 mb-4">
                         <div class="card h-100">
                             <div class="card-body text-center">
-                                <i class="bi ' . $card['icon'] . ' fs-1"></i>';
+                                <i class="bi ' . $card['icon'] .' text-dark fs-1"></i>';
                                 include_once("../classe/" . $card['class'] . ".php");
                                 $total = new $card['class']();
-                                echo '<h3 class="text-success fw-bold">' . $total->{$card['method']}() . '</h3>
+                                echo '<h3 class="text-dark fw-bold">' . $total->{$card['method']}() . '</h3>
                                 <p class="card-text fw-lighter">' . $card['label'] . '</p>
                             </div>
                         </div>

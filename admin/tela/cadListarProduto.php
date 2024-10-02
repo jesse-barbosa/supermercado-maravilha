@@ -31,7 +31,7 @@ if (isset($_POST['editar'])) {
     @$idImage = $_POST['idImage'];
 
     $produto = new AlterarProduto();
-    $produto->alterarProduto($idProduto, $nome, $descricao, $quantidade, $preco, $categoria, $subcategoria, $situacao, $idImage);
+    $produto->alterarProduto($idProduto, $nome, $descricao, $quantidade, $preco, $categoria, $situacao, $idImage);
 }
 
 // Apagar
@@ -142,7 +142,8 @@ if (isset($_GET['id'])) {
                             $listarCategorias = new ListarCategorias();
                             $categorias = $listarCategorias->listarCategorias();
                             foreach ($categorias as $categoria) {
-                                echo "<option value='" . htmlspecialchars($categoria['idCategory']) . "' class='text-dark'>" . htmlspecialchars($categoria['nameCategory']) . "</option>";
+                                // Certifique-se que 'id' e 'name' são os índices corretos
+                                echo "<option value='" . htmlspecialchars($categoria['id']) . "'>" . htmlspecialchars($categoria['name']) . "</option>";
                             }
                             ?>
                         </select>
@@ -212,14 +213,15 @@ if (isset($_GET['id'])) {
                     <label for="editCategoriaProduto" class="form-label">Categoria do Produto:</label>
                     <select name="categoriaProduto" id="editCategoriaProduto" class="form-select" required>
                         <option value="" disabled selected>Escolha uma categoria</option>
-                        <?php
-                        include_once("../classe/ListarCategorias.php");
-                        $listarCategorias = new ListarCategorias();
-                        $categorias = $listarCategorias->listarCategorias();
-                        foreach ($categorias as $categoria) {
-                            echo "<option value='" . htmlspecialchars($categoria['id']) . " '>" . htmlspecialchars($categoria['name']) . "</option>";
-                        }
-                        ?>
+                    <?php
+                    include_once("../classe/ListarCategorias.php");
+                    $listarCategorias = new ListarCategorias();
+                    $categorias = $listarCategorias->listarCategorias();
+                    foreach ($categorias as $categoria) {
+                        // Certifique-se que 'id' e 'name' são os índices corretos
+                        echo "<option value='" . htmlspecialchars($categoria['id']) . "'>" . htmlspecialchars($categoria['name']) . "</option>";
+                    }
+                    ?>
                     </select>
                 </div>
                 <!-- Situação do Produto -->
@@ -257,9 +259,10 @@ if (isset($_GET['id'])) {
     </div>
   </div>
 </div>
-
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    let deleteId = null;  // Definir deleteId globalmente
+
     // Atualizar o modal de edição ao clicar no botão de edição
     document.querySelectorAll('.bi-pencil').forEach(button => {
         button.addEventListener('click', function () {
@@ -268,10 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const precoProduto = this.dataset.preco;
             const descricaoProduto = this.dataset.descricao;
             const quantidadeProduto = this.dataset.quantidade;
-            const idImage = this.dataset.idimage;
             const urlImagem = this.dataset.url;
             const categoriaProduto = this.dataset.categoria;
-            const subcategoriaProduto = this.dataset.subcategoria;
             const situacaoProduto = this.dataset.situacao;
 
             // Preencher os campos do modal com os valores
@@ -280,46 +281,51 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('editPrecoProduto').value = precoProduto;
             document.getElementById('editDescricaoProduto').value = descricaoProduto;
             document.getElementById('editQuantidadeProduto').value = quantidadeProduto;
+            document.getElementById('editCategoriaProduto').value = categoriaProduto;
+            document.getElementById('editSituacaoProduto').value = situacaoProduto;
 
             // Atualizar o preview da imagem
-            const selectImagem = document.getElementById('editIdImage');
-            const options = selectImagem.querySelectorAll('option');
-            let found = false;
-            options.forEach(option => {
-                if (option.value === idImage) {
-                    option.selected = true;
-                    document.querySelector('.editImagemPreview').src = urlImagem; // Mostrar a imagem selecionada
-                    found = true;
-                }
-            });
-
-            if (!found) {
-                document.querySelector('.editImagemPreview').src = ''; // Limpar o preview se a imagem não for encontrada
+            if (urlImagem) {
+                document.querySelector('.editImagemPreview').src = urlImagem;
+            } else {
+                document.querySelector('.editImagemPreview').src = ''; // Limpar preview se não houver imagem
             }
-
-            // Atualizar a seleção de categorias e subcategorias
-            document.getElementById('editCategoriaProduto').value = categoriaProduto;
-            document.getElementById('editSubcategoriaProduto').value = subcategoriaProduto;
-            document.getElementById('editSituacaoProduto').value = situacaoProduto;
 
             // Abrir o modal de edição
             const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
             modal.show();
         });
     });
-    // Atualizar o preview da imagem ao trocar a seleção no modal de edição
-    document.getElementById('editIdImage').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const url = selectedOption.dataset.url;
-        document.querySelector('.editImagemPreview').src = url;
+
+    // Preview da imagem no modal de edição ao trocar a imagem
+    document.getElementById('editUrlImage').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.querySelector('.editImagemPreview').src = e.target.result;
+        };
+        if (file) {
+            reader.readAsDataURL(file); // Ler o arquivo de imagem selecionado
+        } else {
+            document.querySelector('.editImagemPreview').src = ''; // Limpar preview se não houver imagem
+        }
     });
 
-    // Atualizar o preview da imagem ao trocar a seleção no modal de adição
-    document.getElementById('addIdImage').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const url = selectedOption.dataset.url;
-        document.querySelector('.addImagemPreview').src = url;
+    // Preview da imagem no modal de adição ao trocar a imagem
+    document.getElementById('addUrlImage').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.querySelector('.addImagemPreview').src = e.target.result;
+        };
+        if (file) {
+            reader.readAsDataURL(file); // Ler o arquivo de imagem selecionado
+        } else {
+            document.querySelector('.addImagemPreview').src = ''; // Limpar preview se não houver imagem
+        }
     });
+
+    // Exibir modal de confirmação de exclusão
     document.querySelectorAll('.bi-trash').forEach(button => {
         button.addEventListener('click', function () {
             deleteId = this.dataset.id;
@@ -327,7 +333,8 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.show();
         });
     });
-    
+
+    // Confirmar exclusão
     document.getElementById('confirmDelete').addEventListener('click', function () {
         if (deleteId) {
             window.location.href = 'index.php?tela=cadListarProduto&action=delete&id=' + deleteId;
