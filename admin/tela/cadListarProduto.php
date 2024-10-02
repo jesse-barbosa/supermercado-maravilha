@@ -28,10 +28,10 @@ if (isset($_POST['editar'])) {
     $categoria = $_POST['categoriaProduto'];
     $situacao = $_POST['situacaoProduto'];
 
-    @$idImage = $_POST['idImage'];
+    @$imagem = $_FILES['imagemProduto'];
 
     $produto = new Alterar();
-    $produto->alterarProduto($idProduto, $nome, $descricao, $quantidade, $preco, $categoria, $situacao, $idImage);
+    $produto->alterarProduto($idProduto, $nome, $descricao, $quantidade, $preco, $categoria, $situacao, $imagem);
 }
 
 // Apagar
@@ -179,8 +179,8 @@ if (isset($_GET['id'])) {
                 <!-- Seleção da Imagem -->
                 <div class="mb-3 text-start">
                 <div class="text-start px-1 py-1 mb-1">
-                    <label for="addUrlImage" class="form-label">Imagem</label>
-                    <input type="file" class="form-control" id="addUrlImage" name="url">
+                    <label for="editImagemProduto" class="form-label">Imagem</label>
+                    <input type="file" class="form-control" id="editImagemProduto" name="imagemProduto">
                 </div>
                 </div>
                 <!-- Descrição do Produto -->

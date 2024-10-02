@@ -19,7 +19,7 @@ class UploadImagem {
             }
     
             // Define o diretório de destino
-            $diretorioAtual = realpath(__DIR__ . "/../img/" . $local);
+            $diretorioAtual = realpath(__DIR__ . "../../../img/" . $local);
     
             // Verifica se o diretório de destino existe, se não existir, cria o diretório
             if (!is_dir($diretorioAtual)) {

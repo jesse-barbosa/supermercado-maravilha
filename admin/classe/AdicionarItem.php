@@ -30,7 +30,7 @@ class Adicionar extends Conexao {
         try {
             // Instanciar classe UploadImagem
             $uploadImagem = new UploadImagem();
-            $uploadImagem->upload($imagem, 'produtos');
+            $uploadImagem->upload($imagem, 'products');
 
             // Verificar se o diretório da imagem foi setado corretamente
             $novoDiretorioImagem = $uploadImagem->getNovoDiretorio();
@@ -59,7 +59,7 @@ class Adicionar extends Conexao {
         try {
 
             // Insere os dados no banco de dados usando o método execSql
-            $sql = "INSERT INTO users (name, email, password, access_level, cpf, phone, statusUser)
+            $sql = "INSERT INTO users (name, email, password, access_level, cpf, phone, status)
              VALUES ('$nome', '$email', '$senha', '$access_level', '$cpf', '$phone', '$situacao')";
             
             if ($this->execSql($sql)) {

@@ -75,7 +75,7 @@ class MostrarUsuarios extends criaPaginacao {
                         echo "<td class='fw-light'>".$resultado['cpf']."</td>";
                         echo "<td class='fw-light'>".$resultado['phone']."</td>";
                         echo "<td class='fw-light'>".$resultado['status']."</td>";
-                        echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-id='".$resultado['id']."' data-nome='".$resultado['name']."' data-email='".$resultado['email']."' data-situacao='".$resultado['status']."' data-type='".$resultado['access_level']."'></a></td>";
+                        echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-id='".$resultado['id']."' data-nome='".$resultado['name']."' data-email='".$resultado['email']."' data-cpf='".$resultado['cpf']."' data-phone='".$resultado['phone']."' data-accesslevel='".$resultado['access_level']."' data-situacao='".$resultado['status']."'></a></td>";
                         echo "<td><a href='#' class='bi bi-trash btn btn-dark' data-id='".$resultado['id']."'></a></td>";
                     echo "</tr>";
                 }

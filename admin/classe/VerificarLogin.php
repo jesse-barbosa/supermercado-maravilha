@@ -62,7 +62,7 @@ class VerificarLogin extends Conexao
             $_SESSION['senha'] = $this->senha;
             $_SESSION['typeUser'] = $resultado[0]['typeUser'];
             
-            header('Location: /supermarket/admin/tela/index.php');
+            header('Location: /supermarket/admin/tela/index.php?tela=');
         }
      } catch (Exception $e) {
         echo "Erro: ".$e->getMessage();

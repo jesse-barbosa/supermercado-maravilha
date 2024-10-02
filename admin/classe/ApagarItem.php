@@ -64,7 +64,7 @@ class Apagar extends Conexao {
             $stmt->bind_param("i", $idUsuario);
 
             if ($stmt->execute()) {
-                echo "<script>window.location.href = 'index.php?tela=cadListarUsuario';</script>";
+                echo "<script>alert('Usuário apagado com sucesso!');window.location.href = 'index.php?tela=cadListarUsuario';</script>";
             } else {
                 echo "Erro ao excluir usuário: " . $stmt->error;
             }

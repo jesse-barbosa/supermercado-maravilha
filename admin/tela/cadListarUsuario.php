@@ -1,6 +1,6 @@
 <?php
 // Adicionar
-include_once("../classe/AdicionarItems.php");
+include_once("../classe/AdicionarItem.php");
 
 if (isset($_POST['enviar'])) {
     $nome = $_POST['nome'];
@@ -8,7 +8,7 @@ if (isset($_POST['enviar'])) {
     $senha = $_POST['senha'];
     $access_level = $_POST['access_level'];
     $cpf = $_POST['cpf'];
-    $phone = $_POST['phone'];
+    $phone = $_POST['telefone'];
     $situacao = $_POST['situacao'];
 
     $usuario = new Adicionar();
@@ -22,14 +22,15 @@ if (isset($_POST['editar'])) {
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
+    $access_level = $_POST['access_level'];
+    $cpf = $_POST['cpf'];
+    $phone = $_POST['telefone'];
     $situacao = $_POST['situacao'];
-    $typeUser = $_POST['typeUser'];
 
     $usuario = new Alterar();
 
-    $usuario->alterarUsuario($idUsuario, $nome, $email, $senha, $accessLevel, $cpf, $phone, $situacao);
+    $usuario->alterarUsuario($idUsuario, $nome, $email, $senha,  $access_level, $cpf, $phone, $situacao);
 
-    echo "<script>window.location.href = 'index.php?tela=cadListarUsuario';</script>";
 }
 
 // Apagar
@@ -126,7 +127,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
                 </div>
                 <div class="mb-3">
                     <label for="telefoneUsuario" class="form-label">Telefone</label>
-                    <input type="number" class="form-control" id="phoneUsuario" name="numero">
+                    <input type="number" class="form-control" id="phoneUsuario" name="telefone">
                 </div>
                 <div class="mb-3">
                     <label for="situacaoUsuario" class="form-label">Situação</label>
@@ -167,8 +168,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
                         <input type="password" class="form-control" id="editSenhaUsuario" name="senha">
                     </div>
                     <div class="mb-3">
-                        <label for="editTypeUser" class="form-label">Tipo</label>
-                        <select class="form-select" id="editTypeUser" name="typeUser" required>
+                        <label for="editAccessLevel" class="form-label">Tipo</label>
+                        <select class="form-select" id="editAccessLevel" name="access_level" required>
                             <option value='0'>Default</option>
                             <option value='1'>Admin</option>
                             <option value='2'>Admin-Master</option>
@@ -179,8 +180,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
                         <input type="number" class="form-control" id="editCpfUsuario" name="cpf">
                     </div>
                     <div class="mb-3">
-                        <label for="editNumeroUsuario" class="form-label">Telefone</label>
-                        <input type="number" class="form-control" id="editNumeroUsuario" name="numero">
+                        <label for="editTelefoneUsuario" class="form-label">Telefone</label>
+                        <input type="number" class="form-control" id="editTelefoneUsuario" name="telefone">
                     </div>
                     <div class="mb-3">
                         <label for="editSituacaoUsuario" class="form-label">Situação</label>
@@ -224,8 +225,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             document.getElementById('editIdUsuario').value = this.dataset.id;
             document.getElementById('editNomeUsuario').value = this.dataset.nome;
             document.getElementById('editEmailUsuario').value = this.dataset.email;
+            document.getElementById('editCpfUsuario').value = this.dataset.cpf;
+            document.getElementById('editTelefoneUsuario').value = this.dataset.phone;
+            document.getElementById('editAccessLevel').value = this.dataset.accesslevel;
             document.getElementById('editSituacaoUsuario').value = this.dataset.situacao;
-            document.getElementById('editTypeUser').value = this.dataset.type;
 
             const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
             modal.show();
