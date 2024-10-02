@@ -59,10 +59,11 @@
     <hr class="mt-4">
     <div class="container-fluid mt-5">
         <div class="row">
-            <h3 class="mb-4 text-secondary fw-lighter">Total Registros</h3>
+            <h3 class="mb-4 text-secondary fw-normal">Total Registros</h3>
             <?php
             $cards = [
-                ['icon' => 'bi-pc-display', 'class' => 'MostrarProdutos', 'method' => 'totalProdutos', 'label' => 'Total de Produtos'],
+                ['icon' => 'bi-cart', 'class' => 'MostrarProdutos', 'method' => 'totalProdutos', 'label' => 'Total de Produtos'],
+                ['icon' => 'bi-currency-exchange', 'class' => 'MostrarPedidos', 'method' => 'totalPedidos', 'label' => 'Total de Pedidos'],
                 ['icon' => 'bi-bookmark', 'class' => 'MostrarCategorias', 'method' => 'totalCategorias', 'label' => 'Total de Categorias'],
                 ['icon' => 'bi-person', 'class' => 'MostrarUsuarios', 'method' => 'totalUsuarios', 'label' => 'Total de Usuários']
             ];

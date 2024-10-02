@@ -47,9 +47,9 @@ class MostrarCategorias extends CriaPaginacao {
                 <table class='table table-hover'>
                     <thead>
                         <tr class='text-center'>
-                            <th class='text-secondary fw-lighter'>ID</th>
-                            <th class='text-secondary fw-lighter'>Nome</th>
-                            <th class='text-secondary fw-lighter'>Descrição</th>
+                            <th class='text-secondary fw-light'>ID</th>
+                            <th class='text-secondary fw-light'>Nome</th>
+                            <th class='text-secondary fw-light'>Descrição</th>
                             <th width='30'></th>
                             <th width='30'></th>
                         </tr>
@@ -59,9 +59,9 @@ class MostrarCategorias extends CriaPaginacao {
                 foreach($categorias as $resultado){
                     $contador++;
                     echo "<tr class='text-center'>";
-                        echo "<td class='fw-lighter'>".$resultado['id']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['name']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['description']."</td>";   
+                        echo "<td class='fw-light'>".$resultado['id']."</td>";
+                        echo "<td class='fw-light'>".$resultado['name']."</td>";
+                        echo "<td class='fw-light'>".$resultado['description']."</td>";   
                         echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-bs-toggle='modal' data-bs-target='#editCategoryModal' data-id='".$resultado['id']."' data-nome='".$resultado['name']."' data-descricao='".$resultado['description']."'></a></td>";
                         echo "<td><i class='bi bi-trash btn btn-dark' data-id='".$resultado['id']."'></i></td>";
                     echo "</tr>";

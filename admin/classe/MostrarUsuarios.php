@@ -50,14 +50,14 @@ class MostrarUsuarios extends criaPaginacao {
                 <table class='table table-hover'>
                     <thead>
                         <tr class='text-center'>
-                            <th class='text-secondary fw-lighter'>ID</th>
-                            <th class='text-secondary fw-lighter'>Nome</th>
-                            <th class='text-secondary fw-lighter'>Senha</th>
-                            <th class='text-secondary fw-lighter'>Acesso</th>
-                            <th class='text-secondary fw-lighter'>Email</th>
-                            <th class='text-secondary fw-lighter'>CPF</th>
-                            <th class='text-secondary fw-lighter'>Telefone</th>
-                            <th class='text-secondary fw-lighter'>Situação</th>
+                            <th class='text-secondary fw-light'>ID</th>
+                            <th class='text-secondary fw-light'>Nome</th>
+                            <th class='text-secondary fw-light'>Senha</th>
+                            <th class='text-secondary fw-light'>Acesso</th>
+                            <th class='text-secondary fw-light'>Email</th>
+                            <th class='text-secondary fw-light'>CPF</th>
+                            <th class='text-secondary fw-light'>Telefone</th>
+                            <th class='text-secondary fw-light'>Situação</th>
                             <th width='30'></th>
                             <th width='30'></th>
                         </tr>
@@ -67,14 +67,14 @@ class MostrarUsuarios extends criaPaginacao {
                 foreach($usuarios as $resultado){
                     $contador++;
                     echo "<tr class='text-center'>";
-                        echo "<td class='fw-lighter'>".$resultado['id']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['name']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['password']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['access_level']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['email']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['cpf']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['phone']."</td>";
-                        echo "<td class='fw-lighter'>".$resultado['status']."</td>";
+                        echo "<td class='fw-light'>".$resultado['id']."</td>";
+                        echo "<td class='fw-light'>".$resultado['name']."</td>";
+                        echo "<td class='fw-light'>".$resultado['password']."</td>";
+                        echo "<td class='fw-light'>".$resultado['access_level']."</td>";
+                        echo "<td class='fw-light'>".$resultado['email']."</td>";
+                        echo "<td class='fw-light'>".$resultado['cpf']."</td>";
+                        echo "<td class='fw-light'>".$resultado['phone']."</td>";
+                        echo "<td class='fw-light'>".$resultado['status']."</td>";
                         echo "<td><a href='#' class='bi bi-pencil btn btn-outline-dark' data-id='".$resultado['id']."' data-nome='".$resultado['name']."' data-email='".$resultado['email']."' data-situacao='".$resultado['status']."' data-type='".$resultado['access_level']."'></a></td>";
                         echo "<td><a href='#' class='bi bi-trash btn btn-dark' data-id='".$resultado['id']."'></a></td>";
                     echo "</tr>";
