@@ -2,7 +2,7 @@
         <div class="d-flex flex-row text-center">
             <div class="text-center my-0 mb-3 lead text-light">
                 <img src="../img/icon.png" class="rounded-3 mb-1 w-50" alt="Icone">
-                <p class='fw-normal text-dark fs-6'><?php echo $_SESSION['nome']; ?></p>
+                <p class='fw-normal text-dark fs-5'><?php echo $_SESSION['nome']; ?></p>
             </div>
         </div>
     <ul class="nav flex-column flex-grow-1">

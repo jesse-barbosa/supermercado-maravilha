@@ -11,3 +11,8 @@ h2 {
   bottom: 0;
   width: 100%;
 }
+.buy-list {
+  background-color: #ECE1C0;
+  height: 90px !important;
+  width: 60px !important;
+}
