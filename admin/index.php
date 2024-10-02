@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         body {
-            background: white;
+            background: linear-gradient(135deg, #FCC83A, #E37A35);
             color: #fff;
+            font-family: Arial, sans-serif;
         }
         .container-fluid {
             height: 100vh;
@@ -18,27 +19,37 @@
             justify-content: center;
         }
         .form-container {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
             padding: 2rem;
             width: 100%;
-            max-width: 600px;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
         .form-control {
-            background-color: #333;
-            border: 1px solid #444;
+            background-color: #444;
+            border: 1px solid #555;
             color: #fff;
         }
         .form-control::placeholder {
-            color: #888;
+            color: #bbb;
         }
         .btn-light {
             background-color: #fff;
             color: #333;
             border: none;
+            transition: background-color 0.3s ease;
         }
         .btn-light:hover {
-            background-color: #f0f0f0;
+            background-color: #e2e2e2;
+        }
+        .alert {
+            transition: opacity 0.3s ease;
+        }
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #ccc;
         }
     </style>
 </head>
@@ -50,11 +61,11 @@
                 <input type="hidden" name="idForm" value="formLogin">
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome</label>
-                    <input type="text" name="nome" id="nome" placeholder="Nome" class="form-control">
+                    <input type="text" name="nome" id="nome" placeholder="Digite seu nome" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="senha" class="form-label">Senha</label>
-                    <input type="password" name="senha" id="senha" placeholder="Senha" class="form-control">
+                    <input type="password" name="senha" id="senha" placeholder="Digite sua senha" class="form-control" required>
                 </div>
                 <div class="mt-4">
                     <button type="submit" name="enviar" class="btn btn-light w-100">Entrar</button>
@@ -74,6 +85,9 @@
                 ?>
             </form>
         </div>
+    </div>
+    <div class="footer-text">
+        <p>© <?php echo date('Y'); ?> Painel Administrativo</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
