@@ -4,9 +4,10 @@ include_once("../classe/AlterarItem.php");
 
 if (isset($_POST['editar'])) {
     $idPedido = $_POST['idPedido'];
-    $usuarioId = $_POST['usuarioIdPedido'];
-    $produtoId = $_POST['produtoIdPedido'];
-    $quantidade = $_POST['quantidadePedido'];
+    // Utilize valores dos inputs hidden se access_level for 1
+    $usuarioId = $_POST['usuarioIdPedido'] ?? $_POST['oldUsuarioIdPedido'];
+    $produtoId = $_POST['produtoIdPedido'] ?? $_POST['oldProdutoIdPedido'];
+    $quantidade = $_POST['quantidadePedido'] ?? $_POST['oldQuantidadePedido'];
     $situacao = $_POST['situacaoPedido'];
 
     $pedido = new Alterar();
@@ -54,61 +55,76 @@ if (isset($_POST['editar'])) {
 </div>
 <!-- Modal de Edição de Pedido -->
 <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="editProductModalLabel">Editar Pedido</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form method="POST" action="">
-            <div class="modal-body">
-                <!-- ID do Pedido -->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Editar Pedido</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="">
+                <div class="modal-body">
+                    <!-- ID do Pedido -->
                     <input type="hidden" name="idPedido" id="editIdPedido" class="form-control" required>
-                <!-- Usuário -->
-                <div class="mb-3 text-start">
-                    <label for="editUsuarioIdPedido" class="form-label">ID do Usuário:</label>
-                    <input type="text" name="usuarioIdPedido" id="editUsuarioIdPedido" class="form-control" required></input>
+                    
+                    <?php
+                    // Exibir campos baseados no nível de acesso do usuário
+                    if ($_SESSION['access_level'] == 2) {
+                        // Campos visíveis para access_level 2
+                        echo '
+                        <div class="mb-3 text-start">
+                            <label for="editUsuarioIdPedido" class="form-label">ID do Usuário:</label>
+                            <input type="text" name="usuarioIdPedido" id="editUsuarioIdPedido" class="form-control" required>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="editProdutoIdPedido" class="form-label">ID do Produto:</label>
+                            <input type="text" name="produtoIdPedido" id="editProdutoIdPedido" class="form-control" required>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="editQuantidadePedido" class="form-label">Quantidade do Pedido:</label>
+                            <input type="number" name="quantidadePedido" id="editQuantidadePedido" class="form-control" required>
+                        </div>
+                        ';
+                    } elseif ($_SESSION['access_level'] == 1) {
+                        // Campos ocultos para access_level 1
+                        echo '
+                        <input type="hidden" name="oldUsuarioIdPedido" id="editOldUsuarioIdPedido">
+                        <input type="hidden" name="oldProdutoIdPedido" id="editOldProdutoIdPedido">
+                        <input type="hidden" name="oldQuantidadePedido" id="editOldQuantidadePedido">
+                        ';
+                    }
+                    ?>
+                    
+                    <!-- Situação do Pedido -->
+                    <div class="mb-3 text-start">
+                        <label for="editSituacaoPedido" class="form-label">Situação do Pedido:</label>
+                        <select name="situacaoPedido" id="editSituacaoPedido" class="form-select" required>
+                            <option value="" disabled selected>Escolha a situação</option>
+                            <option value="0">Pendente</option>
+                            <option value="1">Confirmado</option>
+                            <option value="2">Cancelado</option>
+                        </select>
+                    </div>
                 </div>
-                <!-- Produto -->
-                <div class="mb-3 text-start">
-                    <label for="editProdutoIdPedido" class="form-label">ID do Produto:</label>
-                    <input type="text" name="produtoIdPedido" id="editProdutoIdPedido" class="form-control" required></input>
+                <div class="modal-footer">
+                    <button type="submit" name="editar" class="btn btn-dark">Salvar Alterações</button>
                 </div>
-                <!-- Quantidade do Pedido -->
-                <div class="mb-3 text-start">
-                    <label for="editQuantidadePedido" class="form-label">Quantidade do Pedido:</label>
-                    <input type="number" name="quantidadePedido" id="editQuantidadePedido" class="form-control" required>
-                </div>
-                <!-- Situação do Pedido -->
-                <div class="mb-3 text-start">
-                    <label for="editSituacaoPedido" class="form-label">Situação do Pedido:</label>
-                    <select name="situacaoPedido" id="editSituacaoPedido" class="form-select" required>
-                        <option value="" disabled selected>Escolha a situação</option>
-                        <option value="0">Pendente</option>
-                        <option value="1">Confirmado</option>
-                        <option value="2">Cancelado</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" name="editar" class="btn btn-dark">Salvar Alterações</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
-</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-
     // Atualizar o modal de edição ao clicar no botão de edição
     document.querySelectorAll('.bi-pencil').forEach(button => {
         button.addEventListener('click', function () {
             const urlImagem = this.dataset.url;
 
             document.getElementById('editIdPedido').value = this.dataset.id;
-            document.getElementById('editUsuarioIdPedido').value = this.dataset.userid;
-            document.getElementById('editProdutoIdPedido').value = this.dataset.productid;
-            document.getElementById('editQuantidadePedido').value = this.dataset.quantity;
+            // Preencher inputs ocultos
+            document.getElementById('editOldUsuarioIdPedido').value = this.dataset.userid;
+            document.getElementById('editOldProdutoIdPedido').value = this.dataset.productid;
+            document.getElementById('editOldQuantidadePedido').value = this.dataset.quantity;
             document.getElementById('editSituacaoPedido').value = this.dataset.status;
 
             // Abrir o modal de edição
