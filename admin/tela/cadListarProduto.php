@@ -122,17 +122,11 @@ if (isset($_GET['id'])) {
                     </div>
                     <!-- Seleção da Imagem -->
                     <div class="mb-3 text-start">
-                        <label for="addIdImage" class="form-label">Selecione a Imagem:</label>
                         <div class="text-start px-1 py-1 mb-1">
                             <label for="addUrlImage" class="form-label">Imagem</label>
                             <input type="file" class="form-control" id="addUrlImage" name="url" required>
                         </div>
                     </div>
-                    <!-- Preview da Imagem Selecionada -->
-                    <div class="mb-3 text-start">
-                        <img class="addImagemPreview img-fluid" src="" alt="Preview da Imagem Selecionada">
-                    </div>
-
                     <!-- Categoria do Produto -->
                     <div class="mb-3 text-start">
                         <label for="categoriaProduto" class="form-label">Categoria do Produto:</label>
@@ -144,7 +138,7 @@ if (isset($_GET['id'])) {
                             $categorias = $listarCategorias->listarCategorias();
                             foreach ($categorias as $categoria) {
                                 // Certifique-se que 'id' e 'name' são os índices corretos
-                                echo "<option value='" . htmlspecialchars($categoria['id']) . "'>" . htmlspecialchars($categoria['name']) . "</option>";
+                                echo "<option value='" . $categoria['id'] . "'>" . $categoria['name'] . "</option>";
                             }
                             ?>
                         </select>
@@ -188,10 +182,6 @@ if (isset($_GET['id'])) {
                     <label for="addUrlImage" class="form-label">Imagem</label>
                     <input type="file" class="form-control" id="addUrlImage" name="url">
                 </div>
-                </div>
-                <!-- Preview da Imagem Selecionada -->
-                <div class="mb-3 text-start">
-                    <img class="editImagemPreview img-fluid" src="" alt="Preview da Imagem Selecionada">
                 </div>
                 <!-- Descrição do Produto -->
                 <div class="mb-3 text-start">
@@ -276,45 +266,10 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('editCategoriaProduto').value = this.dataset.categoria;
             document.getElementById('editSituacaoProduto').value = this.dataset.situacao;
 
-            // Atualizar o preview da imagem
-            if (urlImagem) {
-                document.querySelector('.editImagemPreview').src = urlImagem;
-            } else {
-                document.querySelector('.editImagemPreview').src = ''; // Limpar preview se não houver imagem
-            }
-
             // Abrir o modal de edição
             const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
             modal.show();
         });
-    });
-
-    // Preview da imagem no modal de edição ao trocar a imagem
-    document.getElementById('editUrlImage').addEventListener('change', function (event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            document.querySelector('.editImagemPreview').src = e.target.result;
-        };
-        if (file) {
-            reader.readAsDataURL(file); // Ler o arquivo de imagem selecionado
-        } else {
-            document.querySelector('.editImagemPreview').src = ''; // Limpar preview se não houver imagem
-        }
-    });
-
-    // Preview da imagem no modal de adição ao trocar a imagem
-    document.getElementById('addUrlImage').addEventListener('change', function (event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            document.querySelector('.addImagemPreview').src = e.target.result;
-        };
-        if (file) {
-            reader.readAsDataURL(file); // Ler o arquivo de imagem selecionado
-        } else {
-            document.querySelector('.addImagemPreview').src = ''; // Limpar preview se não houver imagem
-        }
     });
 
     // Exibir modal de confirmação de exclusão

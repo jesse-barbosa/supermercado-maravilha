@@ -5,11 +5,10 @@ include_once("../classe/AdicionarItem.php");
 if(isset($_POST['enviar'])){
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
-    $situacao = $_POST['situacao'];
     
     if(isset($_POST['nome'])){
         $categoria = new Adicionar();
-        $categoria->adicionarCategoria($nome, $descricao, $situacao);
+        $categoria->adicionarCategoria($nome, $descricao);
     
     } else {
         echo "Nome não foi enviado.";
@@ -22,10 +21,9 @@ if (isset($_POST['editar'])) {
     $idCategoria = $_POST['idCategoria'];
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
-    $situacao = $_POST['situacao'];
 
     $categoria = new Alterar();
-    $categoria->alterarCategoria($idCategoria, $nome, $descricao, $situacao);
+    $categoria->alterarCategoria($idCategoria, $nome, $descricao);
 }
 
 // Apagar
@@ -93,11 +91,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idCat
             </div>
             <form action="index.php?tela=cadListarCategoria" method="post">
                 <div class="modal-body">
-                    <div class="text-start border px-1 py-1 mb-1">
-                        <input type="text" name="nome" class="input border-0 py-1" placeholder="Nome" required>
+                    <div class="mb-3 text-start">
+                        <input type="text" name="nome" class="form-control" placeholder="Nome" required>
                     </div>
-                    <div class="text-start border px-1 py-1 mb-1">
-                        <input type="text" name="descricao" class="input border-0 py-1" placeholder="Descrição" required>
+                    <div class="mb-3 text-start">
+                        <input type="text" name="descricao" class="form-control" placeholder="Descrição" required>
                     </div>
                 </div>
                 <div class="modal-footer border-0">

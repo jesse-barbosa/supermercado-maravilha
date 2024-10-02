@@ -55,12 +55,12 @@ class Adicionar extends Conexao {
             echo "Erro ao adicionar produto: " . $e->getMessage();
         }
     }
-    public function adicionarUsuario($nome, $email, $senha, $typeUser, $situacao){
+    public function adicionarUsuario($nome, $email, $senha, $access_level, $cpf, $phone, $situacao){
         try {
 
             // Insere os dados no banco de dados usando o método execSql
-            $sql = "INSERT INTO users (name, email, password, typeUser, statusUser)
-             VALUES ('$nome', '$email', '$senha', '$typeUser', '$situacao')";
+            $sql = "INSERT INTO users (name, email, password, access_level, cpf, phone, statusUser)
+             VALUES ('$nome', '$email', '$senha', '$access_level', '$cpf', '$phone', '$situacao')";
             
             if ($this->execSql($sql)) {
                 echo "<script>alert('Usuário adicionado com sucesso!');window.location.href = 'index.php?tela=cadListarUsuario'</script>";

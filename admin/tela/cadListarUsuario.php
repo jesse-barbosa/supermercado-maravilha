@@ -6,11 +6,13 @@ if (isset($_POST['enviar'])) {
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
-    $typeUser = $_POST['typeUser'];
+    $access_level = $_POST['access_level'];
+    $cpf = $_POST['cpf'];
+    $phone = $_POST['phone'];
     $situacao = $_POST['situacao'];
 
     $usuario = new Adicionar();
-    $usuario->adicionarUsuario($nome, $email, $senha, $typeUser, $situacao);
+    $usuario->adicionarUsuario($nome, $email, $senha, $access_level, $cpf, $phone, $situacao);
 }
 // Editar
 include_once("../classe/AlterarItem.php");
@@ -111,18 +113,26 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
                     <input type="password" class="form-control" id="senhaUsuario" name="senha">
                 </div>
                 <div class="mb-3">
+                    <label for="access_levelUser" class="form-label">Tipo</label>
+                    <select class="form-select" id="access_level" name="access_level" required>
+                        <option value='0'>Default</option>
+                        <option value='1'>Admin</option>
+                        <option value='2'>Admin-Master</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="cpfUsuario" class="form-label">CPF</label>
+                    <input type="number" class="form-control" id="cpfUsuario" name="cpf">
+                </div>
+                <div class="mb-3">
+                    <label for="telefoneUsuario" class="form-label">Telefone</label>
+                    <input type="number" class="form-control" id="phoneUsuario" name="numero">
+                </div>
+                <div class="mb-3">
                     <label for="situacaoUsuario" class="form-label">Situação</label>
                     <select class="form-select" id="situacaoUsuario" name="situacao" required>
                         <option value='ATIVO'>ATIVO</option>
                         <option value='DESATIVO'>DESATIVO</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="editTypeUser" class="form-label">Tipo</label>
-                    <select class="form-select" id="editTypeUser" name="typeUser" required>
-                        <option value='0'>Default</option>
-                        <option value='1'>Admin</option>
-                        <option value='2'>Admin-Master</option>
                     </select>
                 </div>
             </div>
@@ -157,18 +167,26 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
                         <input type="password" class="form-control" id="editSenhaUsuario" name="senha">
                     </div>
                     <div class="mb-3">
-                        <label for="editSituacaoUsuario" class="form-label">Situação</label>
-                        <select class="form-select" id="editSituacaoUsuario" name="situacao" required>
-                            <option value='ATIVO'>ATIVO</option>
-                            <option value='DESATIVO'>DESATIVO</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label for="editTypeUser" class="form-label">Tipo</label>
                         <select class="form-select" id="editTypeUser" name="typeUser" required>
                             <option value='0'>Default</option>
                             <option value='1'>Admin</option>
                             <option value='2'>Admin-Master</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCPFUsuario" class="form-label">CPF</label>
+                        <input type="number" class="form-control" id="editCpfUsuario" name="cpf">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editNumeroUsuario" class="form-label">Telefone</label>
+                        <input type="number" class="form-control" id="editNumeroUsuario" name="numero">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editSituacaoUsuario" class="form-label">Situação</label>
+                        <select class="form-select" id="editSituacaoUsuario" name="situacao" required>
+                            <option value='ATIVO'>ATIVO</option>
+                            <option value='DESATIVO'>DESATIVO</option>
                         </select>
                     </div>
                 </div>

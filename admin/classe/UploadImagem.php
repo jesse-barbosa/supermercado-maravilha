@@ -33,7 +33,7 @@ class UploadImagem {
     
             // Tenta mover o arquivo
             if (move_uploaded_file($nomeImagemTmp, $caminhoImagemFinal)) {
-                $this->novoDiretorio = "/TechPoint/img/" . $local . "/" . $nomeImagemFinal;
+                $this->novoDiretorio = "/supermarket/img/" . $local . "/" . $nomeImagemFinal;
             } else {
                 die("Erro ao mover o arquivo para o diretório de destino. Verifique permissões.");
             }
