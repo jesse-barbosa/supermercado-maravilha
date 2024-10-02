@@ -65,8 +65,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idUsu
         <div class="row">
             <div class="col bg-white py-4 m-3 rounded-3">
                 <?php
-                    include_once("../classe/MostrarUsuarios.php");
-                    $usuarios = new MostrarUsuarios();
+                    include_once("../classe/MostrarItem.php");
+                    $usuarios = new Mostrar();
                     $usuarios->setNumPagina(@$_GET['pg']);
                     $usuarios->setUrl("?tela=cadListarUsuario");
                     $usuarios->setSessao('');

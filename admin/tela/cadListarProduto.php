@@ -67,8 +67,8 @@ if (isset($_GET['id'])) {
         <div class="row">
             <div class="col bg-white py-4 m-3 rounded-3">
                 <?php
-                    include_once("../classe/MostrarProdutos.php");
-                    $produtos = new MostrarProdutos();
+                    include_once("../classe/MostrarItem.php");
+                    $produtos = new Mostrar();
                     $produtos->setNumPagina(@$_GET['pg']);
                     $produtos->setUrl("?tela=cadListarProduto");
                     $produtos->setSessao('');

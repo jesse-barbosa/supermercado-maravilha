@@ -57,8 +57,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['idCat
         <div class="row">
             <div class="col bg-white py-4 m-3 rounded-3">
                     <?php
-                        include_once("../classe/MostrarCategorias.php");
-                        $categorias = new MostrarCategorias();
+                        include_once("../classe/MostrarItem.php");
+                        $categorias = new Mostrar();
                         $categorias->setNumPagina(@$_GET['pg']);
                         $categorias->setUrl("?tela=cadListarCategoria");
                         $categorias->setSessao('');

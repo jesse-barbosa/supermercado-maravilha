@@ -62,10 +62,10 @@
             <h3 class="mb-4 text-secondary fw-normal">Total Registros</h3>
             <?php
             $cards = [
-                ['icon' => 'bi-cart', 'class' => 'MostrarProdutos', 'method' => 'totalProdutos', 'label' => 'Total de Produtos'],
-                ['icon' => 'bi-currency-exchange', 'class' => 'MostrarPedidos', 'method' => 'totalPedidos', 'label' => 'Total de Pedidos'],
-                ['icon' => 'bi-bookmark', 'class' => 'MostrarCategorias', 'method' => 'totalCategorias', 'label' => 'Total de Categorias'],
-                ['icon' => 'bi-person', 'class' => 'MostrarUsuarios', 'method' => 'totalUsuarios', 'label' => 'Total de Usuários']
+                ['icon' => 'bi-cart', 'file' => 'MostrarItem', 'class' => 'Mostrar', 'method' => 'totalProdutos', 'label' => 'Total de Produtos'],
+                ['icon' => 'bi-currency-exchange', 'file' => 'MostrarItem', 'class' => 'Mostrar', 'method' => 'totalPedidos', 'label' => 'Total de Pedidos'],
+                ['icon' => 'bi-bookmark', 'file' => 'MostrarItem', 'class' => 'Mostrar', 'method' => 'totalCategorias', 'label' => 'Total de Categorias'],
+                ['icon' => 'bi-person', 'file' => 'MostrarItem', 'class' => 'Mostrar', 'method' => 'totalUsuarios', 'label' => 'Total de Usuários']
             ];
 
             foreach ($cards as $card) {
@@ -73,7 +73,7 @@
                         <div class="card h-100">
                             <div class="card-body text-center">
                                 <i class="bi ' . $card['icon'] .' text-dark fs-1"></i>';
-                                include_once("../classe/" . $card['class'] . ".php");
+                                include_once("../classe/" . $card['file'] . ".php");
                                 $total = new $card['class']();
                                 echo '<h3 class="text-dark fw-bold">' . $total->{$card['method']}() . '</h3>
                                 <p class="card-text fw-lighter">' . $card['label'] . '</p>
