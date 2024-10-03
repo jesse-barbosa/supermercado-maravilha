@@ -21,12 +21,16 @@ SET time_zone = "+00:00";
 -- Banco de dados: `dbsupermarket`
 --
 
+DROP DATABASE IF EXISTS `dbsupermarket`;
+CREATE DATABASE `dbsupermarket` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `dbsupermarket`;
+
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `carts`
 --
-
+  
 CREATE TABLE `carts` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -125,9 +129,9 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `in_stock`, `image
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `password` char(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `access_level` int(1) NOT NULL,
+  `access_level` int(1) NOT NULL DEFAULT 0,
   `cpf` varchar(11) NOT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `status` char(10) NOT NULL DEFAULT 'ATIVO'
