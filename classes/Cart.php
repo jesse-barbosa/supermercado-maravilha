@@ -97,12 +97,6 @@ public function getItemsCard(int $userId) {
             </div>';
     }
 
-    // Adiciona o botão "+" no final da lista de produtos
-    $html .= '
-        <div class="d-flex align-items-center justify-content-center bg-success rounded-circle" style="width: 40px; height: 40px;">
-            <span class="text-white fw-bold">+</span>
-        </div>';
-
     // Fecha o container HTML
     $html .= '</div>';
 

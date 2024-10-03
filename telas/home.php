@@ -1,18 +1,20 @@
 <main>
-    <div class="container-fluid my-3">
-        <div class="buy-list p-3 rounded-5 d-flex justify-content-between mx-auto">
-            <div class="flex-column">
-            <h2 class="opacity-50 fw-bold">Lista de Compras</h2>
-                <?php
-                    include_once("../classes/Cart.php");
+    <a href="index.php?tela=cart" class="text-decoration-none">
+        <div class="container-fluid my-3">
+            <div class="buy-list p-3 rounded-5 d-flex justify-content-between mx-auto">
+                <div class="flex-column">
+                <h2 class="text-black opacity-50 fw-bold">Lista de Compras</h2>
+                    <?php
+                        include_once("../classes/Cart.php");
 
-                    $cart = new Cart();
-                    echo $cart->getItemsCard($_SESSION['id']);
-                ?>
+                        $cart = new Cart();
+                        echo $cart->getItemsCard($_SESSION['id']);
+                    ?>
+                </div>
+                <img src="../img/ilustration.svg" style="width: 160px !important; height: 160px !important;" alt="">
             </div>
-            <img src="../img/ilustration.svg" style="width: 160px !important; height: 160px !important;" alt="">
         </div>
-    </div>
+    </a>
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -47,9 +49,9 @@
             <label for="product-code" class="form-label fw-medium opacity-75 fs-4">Insira o Token do Produto</label>
             <form method="GET" action="">
                 <input type="hidden" name="categoria_id" value="<?php echo isset($_GET['categoria_id']) ? htmlspecialchars($_GET['categoria_id']) : ''; ?>" />
-                <div class="input-group">
-                    <input type="text" class="form-control search py-3" id="product-code" name="token_produto" placeholder="Ex: #3213890" />
-                    <button type="submit" class="btn btn-dark py-3"><i class="bi bi-search"></i></button>
+                <div class="input-group ">
+                    <input type="text" class="form-control rounded-end-0 rounded-4 search py-3" id="product-code" name="token_produto" placeholder="Ex: #3213890" />
+                    <button type="submit" class="btn btn-dark rounded-start-0 rounded-4 py-3"><i class="bi bi-search"></i></button>
                 </div>
             </form>
         </div>
