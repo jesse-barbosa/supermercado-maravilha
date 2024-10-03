@@ -121,6 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const urlImagem = this.dataset.url;
 
             document.getElementById('editIdPedido').value = this.dataset.id;
+            document.getElementById('editUsuarioIdPedido').value = this.dataset.userid;
+            document.getElementById('editProdutoIdPedido').value = this.dataset.productid;
+            document.getElementById('editQuantidadePedido').value = this.dataset.quantity;
             // Preencher inputs ocultos
             document.getElementById('editOldUsuarioIdPedido').value = this.dataset.userid;
             document.getElementById('editOldProdutoIdPedido').value = this.dataset.productid;
