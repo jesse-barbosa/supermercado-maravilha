@@ -1,14 +1,9 @@
 <?php
 include_once("Conexao.php");
-
 class MostrarProdutos extends Conexao {
-    public function __construct() {
-        parent::__construct();
-    }
-
-    public function mostrarProdutos() {
+    public function mostrarProdutos($categoriaId = null) {
         try {
-            // Query para buscar os produtos ativos
+            // Query para buscar os produtos, com filtro opcional de categoria
             $sql = "
             SELECT 
                 p.id as idProduct, 
@@ -27,9 +22,14 @@ class MostrarProdutos extends Conexao {
             WHERE 
                 p.status = 'ATIVO'";
 
+            // Adicionar o filtro de categoria, se o ID for passado
+            if ($categoriaId) {
+                $sql .= " AND c.id = " . intval($categoriaId);
+            }
+
             // Executar a query
             $query = self::execSql($sql);
-            $produtos = self::listarDados($query); // Garantir que o retorno seja um array
+            $produtos = self::listarDados($query);
 
             // Verificar se há produtos
             if (count($produtos) > 0) {
@@ -67,4 +67,5 @@ class MostrarProdutos extends Conexao {
         }
     }
 }
+
 ?>

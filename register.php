@@ -16,7 +16,7 @@
         }
         .register-container {
             background-color: #ffffff;
-            padding: 40px;
+            padding: 10px 40px;
             border-radius: 12px;
         }
         h2 {
@@ -24,11 +24,12 @@
             margin-bottom: 30px;
         }
         .btn-primary {
-            background-color: #E37A35;
+            background-color: #4B8339;
             border: none;
+            transition: all 0.2s;
         }
         .btn-primary:hover {
-            background-color: #FCC83A;
+            background-color: #3d6b2e;
         }
         .logo {
             text-align: center;
@@ -39,35 +40,52 @@
 <body>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-9">
+        <div class="col-md-9">
             <div class="register-container">
                 <div class="logo">
                     <img src="img/logo.svg" alt="Logo" style="width: 80px;">
                 </div>
-                <h2 class="text-center">Cadastro</h2>
-                <form action="telas/index.php" method="POST">
+                <h2 class="text-center">Crie sua Conta</h2>
+                <form action="register.php" method="POST">
                     <div class="mb-3">
-                        <label for="nome" class="form-label">Nome Completo</label>
-                        <input type="text" name="nome" class="form-control" placeholder="Digite seu nome completo" required>
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" name="name" class="form-control" placeholder="Seu nome completo" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Digite seu email" required>
+                        <input type="email" name="email" class="form-control" placeholder="Seu melhor email" required>
                     </div>
                     <div class="mb-3">
                         <label for="cpf" class="form-label">CPF</label>
                         <input type="text" name="cpf" class="form-control" placeholder="Digite seu CPF" required>
                     </div>
                     <div class="mb-3">
-                        <label for="telefone" class="form-label">Telefone</label>
-                        <input type="text" name="telefone" class="form-control" placeholder="Digite seu telefone" required>
+                        <label for="phone" class="form-label">Telefone</label>
+                        <input type="text" name="phone" class="form-control" placeholder="Digite seu telefone" required>
                     </div>
                     <div class="mb-3">
-                        <label for="senha" class="form-label">Senha</label>
-                        <input type="password" name="senha" class="form-control" placeholder="Crie uma senha" required>
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" name="password" class="form-control" placeholder="Uma senha segura" required>
                     </div>
-                    <input type="submit" class="btn btn-primary w-100" value="Cadastrar" />
+                    <input type="submit" name="enviar" class="btn btn-primary w-100" value="Cadastrar" />
                 </form>
+                <?php
+                if (isset($_POST["enviar"])) {
+                    if (empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["cpf"]) || empty($_POST["phone"]) || empty($_POST["password"])) {
+                        echo "<div class='alert alert-warning mt-3' role='alert'>Por favor, preencha todos os campos.</div>";
+                    } else {
+                        $nome = $_POST["name"];
+                        $email = $_POST["email"];
+                        $senha = $_POST["password"];
+                        $cpf = $_POST["cpf"];
+                        $phone = $_POST["phone"];
+
+                        include_once("classes/Register.php");
+                        $dados = new Register();
+                        $dados->Register($nome, $email, $senha, $cpf, $phone);
+                    }
+                }
+                ?>
                 <p class="mt-3 text-center">
                     Já tem uma conta? <a href="index.php">Faça login</a>
                 </p>

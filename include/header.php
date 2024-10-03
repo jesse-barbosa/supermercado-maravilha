@@ -28,6 +28,9 @@
         <li class="nav-item">
           <a class="nav-link opacity-75 fw-semibold mx-3 fs-5" aria-current="page" href="#">Meus Pedidos</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link opacity-75 fw-semibold mx-3 fs-5" aria-current="page" href="../funcao/sair.php">Sair</a>
+        </li>
       </ul>
     </div>
   </div>

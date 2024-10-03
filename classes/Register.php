@@ -2,26 +2,38 @@
 include_once("Conexao.php");
 class Register extends Conexao {
     public function Register($nome, $email, $senha, $cpf, $phone) {
-     try {
-        $sql = "INSERT INTO users (name, password, email, cpf, phone) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$phone') ";
-        $query = self::execSql($sql);
-        $resultado = self::listarDados($query);
-        $dados = self::contarDados($query);
-        
-        if($dados <= 0){
-            echo "<div class='alert alert-danger mt-3'>Nome ou senha inválidos.</div>";
-        }else if($dados == 1){
-            session_start();
-            
-            $_SESSION['nome'] = $nome;
-            $_SESSION['senha'] = $senha;
-            $_SESSION['access_level'] = $resultado[0]['access_level'];
-            
-            header('Location: /supermarket/admin/tela/index.php?tela=');
+        try {
+            // Verifica se já existe um usuário com o mesmo nome ou email
+            $sqlCheck = "SELECT * FROM users WHERE name = '$nome' OR email = '$email'";
+            $resultCheck = self::execSql($sqlCheck);
+
+            if ($resultCheck === false) {
+                throw new Exception("Erro ao verificar a existência do usuário: " . mysqli_error(self::$conectar));
+            }
+
+            // Se o usuário já existir, exibe uma mensagem e interrompe o registro
+            $usuariosExistentes = self::contarDados($resultCheck);
+            if ($usuariosExistentes > 0) {
+                echo "<div class='alert alert-danger mt-3'>Usuário ou email já cadastrado!</div>";
+                return;
+            }
+
+            // Se não houver registros, procede com o cadastro
+            $sqlInsert = "INSERT INTO users (name, password, email, cpf, phone) 
+                          VALUES ('$nome', '$email', '$senha', '$cpf', '$phone')";
+            $query = self::execSql($sqlInsert);
+
+            // Verifica se a query de inserção foi bem-sucedida
+            if ($query === false) {
+                throw new Exception("Erro ao inserir o usuário: " . mysqli_error(self::$conectar));
+            }
+
+            echo "<div class='alert alert-success mt-3'>Cadastro realizado com sucesso!</div>";
+            header('Location: /supermarket/telas/index.php?tela=');
+
+        } catch (Exception $e) {
+            echo "Erro: " . $e->getMessage();
         }
-     } catch (Exception $e) {
-        echo "Erro: ".$e->getMessage();
-     }   
     }
 }
+

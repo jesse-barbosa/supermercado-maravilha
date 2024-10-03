@@ -1,30 +1,24 @@
 <?php
 include_once("Conexao.php");
 class ListarCategorias extends Conexao {
-    public function __construct() {
-        parent::__construct();
-    }
-
     public function listarCategorias() {
         try {
-            // Executa a consulta
+            // Executa a consulta para listar as categorias
             $sql = "SELECT id, name FROM categories";
             $query = self::execSql($sql);
-            
-            // Verifica se há resultados
-            $resultado = self::listarDados($query); // Garantimos que o retorno seja um array
-            $dados = count($resultado);  // Aqui usamos count() diretamente para contar os dados
+            $resultado = self::listarDados($query);
 
             // Verifica se há dados e gera o HTML
-            if ($dados > 0) {
+            if (count($resultado) > 0) {
                 foreach ($resultado as $categoria) {
-                    echo "<li><a class='dropdown-item' href='".$categoria['id']."'>". $categoria['name'] ."</a></li>";
+                    // Passa o ID da categoria corretamente na URL
+                    echo "<li><a class='dropdown-item' href='index.php?categoria_id=" . $categoria['id'] . "'>" . $categoria['name'] . "</a></li>";
                 }
             } else {
-                echo "<option value=''>Nenhuma categoria encontrada</option>";
+                echo "<li><a class='dropdown-item' href='#'>Nenhuma categoria encontrada</a></li>";
             }
         } catch (Exception $e) {
-            echo "<option value=''>Erro: " . $e->getMessage(). "</option>";
+            echo "<li><a class='dropdown-item' href='#'>Erro: " . $e->getMessage() . "</a></li>";
         }
     }
 }

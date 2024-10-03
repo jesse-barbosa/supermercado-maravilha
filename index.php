@@ -24,11 +24,12 @@
             margin-bottom: 30px;
         }
         .btn-primary {
-            background-color: #E37A35;
+            background-color: #4B8339;
             border: none;
+            transition: all 0.2s;
         }
         .btn-primary:hover {
-            background-color: #FCC83A;
+            background-color: #3d6b2e;
         }
         .logo {
             text-align: center;
@@ -39,20 +40,20 @@
 <body>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-md-6">
             <div class="login-container">
                 <div class="logo">
                     <img src="img/logo.svg" alt="Logo" style="width: 80px;">
                 </div>
-                <h2 class="text-center">Login</h2>
+                <h2 class="text-center">Faça Login</h2>
                 <form action="index.php" method="POST">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nome</label>
-                        <input type="text" name="name" class="form-control" placeholder="Digite seu nome" required>
+                        <input type="text" name="name" class="form-control" placeholder="Nome de Usuário" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Senha</label>
-                        <input type="password" name="password" class="form-control" placeholder="Digite sua senha" required>
+                        <input type="password" name="password" class="form-control" placeholder="Senha do Usuário" required>
                     </div>
                     <input type="submit" name="enviar" class="btn btn-primary w-100" value="Entrar" />
                 </form>

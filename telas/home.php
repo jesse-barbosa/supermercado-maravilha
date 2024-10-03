@@ -9,15 +9,17 @@
   <div class="container rounded-lg px-3">
     <div class="mb-3">
       <label for="product-code" class="form-label fw-medium opacity-75 fs-4">Insira o código do Produto</label>
-      <input type="text" class="form-control" id="product-code" placeholder="Ex: #3213890" />
+      <input type="text" class="form-control search" id="product-code" placeholder="Ex: #3213890" />
     </div>
 
     <?php
     include_once("../classes/MostrarProdutos.php");
-      $produtos = New MostrarProdutos();
-      $produtos->mostrarProdutos();
+
+    $categoriaId = isset($_GET['categoria_id']) ? $_GET['categoria_id'] : null;
+
+    $produtos = new MostrarProdutos();
+    $produtos->mostrarProdutos($categoriaId);
     ?>
 
-    </div>
   </div>
 </main>

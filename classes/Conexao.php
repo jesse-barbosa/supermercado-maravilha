@@ -32,7 +32,7 @@ abstract class Conexao
     {
         $this->dados = [];
         while ($row = mysqli_fetch_assoc($qr)) {
-            $this->dados[] = $row;  // Adiciona cada linha ao array
+            $this->dados[] = $row;
         }
         return $this->dados;
     }
