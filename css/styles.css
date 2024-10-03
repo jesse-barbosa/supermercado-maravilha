@@ -2,6 +2,13 @@ body {
   background-color: #ffffff !important;
 }
 
+.navbar-brand {
+  transition: all 0.2s;
+}
+.navbar-brand:hover{
+  transform: scale(1.1);
+}
+
 h2 {
   margin-bottom: 30px;
 }
@@ -72,9 +79,8 @@ h2 {
   border-left: 0px;
   border-right-color:rgba(57, 102, 50, 0.489) !important;
   border-style: solid;
-  margin-left: 35px;
   padding-bottom: 10px;
-  padding-right: 50px;
+  padding-right: 20px;
 }
 .btn-confirm {
   background-color: #4B8339 !important;
