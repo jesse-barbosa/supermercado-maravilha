@@ -1,39 +1,70 @@
 <?php
 include_once("Conexao.php");
-class Register extends Conexao {
-    public function Register($nome, $email, $senha, $cpf, $phone) {
+class Register extends Conexao
+{
+    public function Register($name, $email, $password, $cpf, $phone)
+    {
+        // Verify Email is Valid
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "<div class='alert alert-danger mt-3'>Email inválido.</div>";
+            return;
+        }
+
+        // Verify Name is Exists
+        $sql = mysqli_query($this->conectar, "SELECT * FROM users WHERE name = '$name'");
+
+        if ($sql->num_rows > 0) {
+            echo "<div class='alert alert-danger mt-3'>Usuário já cadastrado.</div>";
+            return;
+        }
+
+        // Verify if cpf contains 11 letters
+        $contCpf = strlen($cpf);
+
+        if ($contCpf != 11) {
+            echo "<div class='alert alert-danger mt-3'>CPF Inválido, Somente Números!</div>";
+            return;
+        }
+
+        // Verify if phone contains 11 letters
+        $contPhone = strlen($phone);
+
+        if ($contPhone != 11) {
+            echo "<div class='alert alert-danger mt-3'>Telefone Inválido, Somente Números!</div>";
+            return;
+        }  
+
+        // Open Transaction for Database
+        mysqli_begin_transaction($this->conectar);
+
         try {
-            // Verifica se já existe um usuário com o mesmo nome ou email
-            $sqlCheck = "SELECT * FROM users WHERE name = '$nome' OR email = '$email'";
-            $resultCheck = self::execSql($sqlCheck);
+            // Transform password in hash
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-            if ($resultCheck === false) {
-                throw new Exception("Erro ao verificar a existência do usuário: " . mysqli_error(self::$conectar));
-            }
+            // Insert information about user in Database
+            $sql = mysqli_query($this->conectar, "INSERT INTO users (name, password, email, cpf, phone) 
+            VALUES ('$name', '$passwordHash','$email', '$cpf', '$phone')");
 
-            // Se o usuário já existir, exibe uma mensagem e interrompe o registro
-            $usuariosExistentes = self::contarDados($resultCheck);
-            if ($usuariosExistentes > 0) {
-                echo "<div class='alert alert-danger mt-3'>Usuário ou email já cadastrado!</div>";
-                return;
-            }
+            // Save informations
+            mysqli_commit($this->conectar);
 
-            // Se não houver registros, procede com o cadastro
-            $sqlInsert = "INSERT INTO users (name, password, email, cpf, phone) 
-                          VALUES ('$nome', '$email', '$senha', '$cpf', '$phone')";
-            $query = self::execSql($sqlInsert);
+            // Get informations
+            $sql = mysqli_query($this->conectar, "SELECT * FROM users WHERE name = '$name' LIMIT 1");
 
-            // Verifica se a query de inserção foi bem-sucedida
-            if ($query === false) {
-                throw new Exception("Erro ao inserir o usuário: " . mysqli_error(self::$conectar));
-            }
+            $results = $sql->fetch_assoc();
 
-            echo "<div class='alert alert-success mt-3'>Cadastro realizado com sucesso!</div>";
-            header('Location: /supermarket/telas/index.php?tela=');
+            session_start();
+
+            // add user_id in $_SESSION
+            $_SESSION['id'] = $results['id'];
+
+            // redirect user for home page
+            header('Location: /supermarket/telas/index.php?tela=home');
 
         } catch (Exception $e) {
+            // if rollback has error
+            mysqli_rollback($this->conectar);
             echo "Erro: " . $e->getMessage();
         }
     }
 }
-
