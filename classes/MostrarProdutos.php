@@ -51,13 +51,22 @@ class MostrarProdutos extends Conexao {
                             <div class='card-body'>
                                 <h5 class='card-title'>{$produto['nameProduct']}</h5>
                                 <p class='card-text'>R$ " . number_format($produto['priceProduct'], 2, ',', '.') . "</p>
-                                <a href='#' class='btn btn-success form-control'>Adicionar</a>
+                            <button type='button' 
+                                    class='btn btn-confirm text-white form-control' 
+                                    data-bs-toggle='modal' 
+                                    data-bs-target='#staticBackdrop'
+                                    data-name='{$produto['nameProduct']}'
+                                    data-price='" . number_format($produto['priceProduct'], 2, ',', '.') . "'
+                                    data-image='{$produto['urlImage']}'>
+                                Adicionar
+                                <i class='bi bi-cart'></i>
+                            </button>
                             </div>
                         </div>
                         ";
                     }
 
-                    echo "</div>"; // Fechar o container da categoria
+                    echo "</div>";
                 }
             } else {
                 echo "<p class='text-center text-dark pt-2'>Nenhum produto disponível no momento.</p>";

@@ -64,5 +64,18 @@ h2 {
   background-color: #555;
 }
 .search {
-  background-color: #E3E3E3;
+  background-color: #E3E3E3 !important;
+}
+.modal img{
+  border-top: 0px;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right-color:rgba(57, 102, 50, 0.489) !important;
+  border-style: solid;
+  margin-left: 35px;
+  padding-bottom: 10px;
+  padding-right: 50px;
+}
+.btn-confirm {
+  background-color: #4B8339 !important;
 }
