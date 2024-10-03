@@ -43,14 +43,14 @@ body {
 
 /* Estilos ao passar o mouse */
 .menu-link:hover .nav-item {
-    background-color: #007bff;
+    background-color: #E37A35;
     color: #ffffff;
     transform: translateX(5px);
 }
 
 /* Estilo do link ativo */
 .menu-link.active .nav-item {
-    background-color: #007bff;
+    background-color: #E37A35;
     color: white;
 }
 
