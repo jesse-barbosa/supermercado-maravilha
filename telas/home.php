@@ -1,11 +1,18 @@
 <main>
     <div class="container-fluid my-3">
         <div class="buy-list p-3 rounded-5 d-flex justify-content-between mx-auto">
+            <div class="flex-column">
             <h2 class="opacity-50 fw-bold">Lista de Compras</h2>
+                <?php
+                    include_once("../classes/Cart.php");
+
+                    $cart = new Cart();
+                    echo $cart->getItemsCard($_SESSION['id']);
+                ?>
+            </div>
             <img src="../img/ilustration.svg" style="width: 160px !important; height: 160px !important;" alt="">
         </div>
     </div>
-
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

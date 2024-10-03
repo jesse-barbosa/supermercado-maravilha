@@ -24,6 +24,7 @@ class Login extends Conexao
             session_start();
 
             // add user_id in $_SESSION
+            $_SESSION['nome'] = $results['name'];
             $_SESSION['id'] = $results['id'];
 
             // redirect user for home page

@@ -1,7 +1,7 @@
 body {
   background-color: #ffffff !important;
 }
-
+  
 .navbar-brand {
   transition: all 0.2s;
 }
@@ -71,7 +71,7 @@ h2 {
   background-color: #555;
 }
 .search {
-  background-color: #E3E3E3 !important;
+  background-color: #efefef !important;
 }
 .modal img{
   border-top: 0px;

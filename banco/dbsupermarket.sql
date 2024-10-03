@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02-Out-2024 às 22:29
+-- Tempo de geração: 03/10/2024 às 23:50
 -- Versão do servidor: 10.4.32-MariaDB
--- versão do PHP: 8.2.12
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -21,16 +21,12 @@ SET time_zone = "+00:00";
 -- Banco de dados: `dbsupermarket`
 --
 
-DROP DATABASE IF EXISTS `dbsupermarket`;
-CREATE DATABASE `dbsupermarket` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `dbsupermarket`;
-
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `carts`
+-- Estrutura para tabela `carts`
 --
-  
+
 CREATE TABLE `carts` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -41,7 +37,7 @@ CREATE TABLE `carts` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categories`
+-- Estrutura para tabela `categories`
 --
 
 CREATE TABLE `categories` (
@@ -51,7 +47,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `categories`
+-- Despejando dados para a tabela `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`) VALUES
@@ -69,7 +65,7 @@ INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `orders`
+-- Estrutura para tabela `orders`
 --
 
 CREATE TABLE `orders` (
@@ -81,7 +77,7 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `orders`
+-- Despejando dados para a tabela `orders`
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `product_id`, `quantity`, `status`) VALUES
@@ -90,7 +86,7 @@ INSERT INTO `orders` (`id`, `user_id`, `product_id`, `quantity`, `status`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `products`
+-- Estrutura para tabela `products`
 --
 
 CREATE TABLE `products` (
@@ -105,7 +101,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `products`
+-- Despejando dados para a tabela `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `in_stock`, `image`, `category_id`, `status`) VALUES
@@ -118,27 +114,59 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `in_stock`, `image
 (7, 'Detergente Líquido', 'Detergente líquido para roupa, 1L', 8.00, 10, '/supermarket/img/products/detergente.jpg', 7, 'ATIVO'),
 (8, 'Shampoo', 'Shampoo para cabelo, 500ml', 9.00, 15, '/supermarket/img/products/shampoo.jpg', 8, 'ATIVO'),
 (9, 'Ração para Cachorro', 'Ração para cachorro, 5kg', 29.00, 5, '/supermarket/img/products/racao_cachorro.jpg', 9, 'ATIVO'),
-(10, 'Bolo de Chocolate', 'Bolo de chocolate fresco, 1kg', 19.00, 10, '/supermarket/img/products/bolo_chocolate.jpg', 6, 'ATIVO');
+(10, 'Bolo de Chocolate', 'Bolo de chocolate fresco, 1kg', 19.00, 10, '/supermarket/img/products/bolo_chocolate.jpg', 6, 'ATIVO'),
+(11, 'Macarrão Penne', 'Macarrão penne seco, 500g', 4.50, 100, '/supermarket/img/products/macarrao_penne.jpeg', 1, 'ATIVO'),
+(12, 'Iogurte Natural', 'Iogurte natural, 1L', 6.00, 40, '/supermarket/img/products/iogurte_natural.jpeg', 2, 'ATIVO'),
+(13, 'Bife de Alcatra', 'Bife de alcatra fresco, 1kg', 25.00, 15, '/supermarket/img/products/bife_alcatra.jpeg', 3, 'ATIVO'),
+(14, 'Banana Prata', 'Banana prata fresca, 1kg', 3.50, 25, '/supermarket/img/products/banana_prata.jpeg', 4, 'ATIVO'),
+(15, 'Suco de Laranja', 'Suco de laranja natural, 1L', 7.00, 50, '/supermarket/img/products/suco_laranja.jpg', 5, 'ATIVO'),
+(16, 'Bolo de Cenoura', 'Bolo de cenoura fresco, 1kg', 18.00, 10, '/supermarket/img/products/bolo_cenoura.jpeg', 6, 'ATIVO'),
+(17, 'Desinfetante', 'Desinfetante multiuso, 1L', 12.00, 20, '/supermarket/img/products/desinfetante.jpg', 7, 'ATIVO'),
+(18, 'Condicionador', 'Condicionador para cabelo, 500ml', 10.00, 15, '/supermarket/img/products/condicionador.jpeg', 8, 'ATIVO'),
+(19, 'Ração para Gato', 'Ração para gato, 5kg', 35.00, 8, '/supermarket/img/products/racao_gato.jpeg', 9, 'ATIVO'),
+(20, 'Geléia de Morango', 'Geléia de morango, 300g', 5.50, 40, '/supermarket/img/products/geleia_morango.png', 10, 'ATIVO'),
+(21, 'Fusilli', 'Macarrão fusilli seco, 500g', 4.00, 90, '/supermarket/img/products/fusilli.jpeg', 1, 'ATIVO'),
+(22, 'Queijo Prato', 'Queijo prato fatiado, 200g', 10.00, 60, '/supermarket/img/products/queijo_prato.jpeg', 2, 'ATIVO'),
+(23, 'Peito de Frango', 'Peito de frango fresco, 1kg', 15.00, 25, '/supermarket/img/products/peito_frango.jpg', 3, 'ATIVO'),
+(24, 'Laranja', 'Laranja fresca, 1kg', 5.00, 50, '/supermarket/img/products/laranja.jpeg', 4, 'ATIVO'),
+(25, 'Refrigerante Guaraná', 'Refrigerante guaraná, 2L', 4.00, 50, '/supermarket/img/products/refrigerante_guarana.jpeg', 5, 'ATIVO'),
+(26, 'Pão de Forma', 'Pão de forma, 500g', 3.00, 30, '/supermarket/img/products/pao_forma.jpeg', 6, 'ATIVO'),
+(27, 'Sabão em Pó', 'Sabão em pó, 1kg', 7.00, 20, '/supermarket/img/products/sabao_po.png', 7, 'ATIVO'),
+(28, 'Creme Dental', 'Creme dental, 90g', 5.00, 50, '/supermarket/img/products/creme_dental.jpeg', 8, 'ATIVO'),
+(29, 'Petisco para Cachorro', 'Petisco para cachorro, 1kg', 22.00, 15, '/supermarket/img/products/petisco_cachorro.jpg', 9, 'ATIVO'),
+(30, 'Chocolate ao Leite', 'Chocolate ao leite, 100g', 4.50, 40, '/supermarket/img/products/chocolate_leite.jpg', 10, 'ATIVO'),
+(31, 'Pasta de Amendoim', 'Pasta de amendoim, 500g', 12.00, 30, '/supermarket/img/products/pasta_amendoim.jpg', 1, 'ATIVO'),
+(32, 'Iogurte Grego', 'Iogurte grego, 150g', 4.00, 50, '/supermarket/img/products/iogurte_grego.jpg', 2, 'ATIVO'),
+(33, 'Carne Moída', 'Carne moída, 1kg', 20.00, 20, '/supermarket/img/products/carne_moida.png', 3, 'ATIVO'),
+(34, 'Mamão', 'Mamão fresco, 1kg', 4.00, 30, '/supermarket/img/products/mamao.png', 4, 'ATIVO'),
+(35, 'Água Mineral', 'Água mineral, 1.5L', 2.00, 100, '/supermarket/img/products/agua_mineral.jpg', 5, 'ATIVO'),
+(36, 'Pão Integral', 'Pão integral, 500g', 4.00, 25, '/supermarket/img/products/pao_integral.jpg', 6, 'ATIVO'),
+(37, 'Solução para Limpeza', 'Solução de limpeza, 500ml', 6.00, 40, '/supermarket/img/products/solucao_limpeza.jpg', 7, 'ATIVO'),
+(38, 'Desodorante', 'Desodorante roll-on, 50ml', 15.00, 20, '/supermarket/img/products/desodorante.jpg', 8, 'ATIVO'),
+(39, 'Brinquedo para Cão', 'Brinquedo para cachorro', 10.00, 10, '/supermarket/img/products/brinquedo_cao.jpg', 9, 'ATIVO'),
+(40, 'Mistura para Bolo', 'Mistura para bolo de chocolate, 500g', 8.00, 30, '/supermarket/img/products/mistura_bolo.jpg', 10, 'ATIVO'),
+(41, 'Salsicha Tipo Hot Dog', 'Salsicha pronta para o consumo, 500g', 10.00, 30, '/supermarket/img/products/salsicha.jpg', 3, 'ATIVO'),
+(42, 'Azeite de Oliva Extra Virgem', 'Azeite de oliva extra virgem, 500ml', 25.00, 40, '/supermarket/img/products/azeite_oliva.jpg', 10, 'ATIVO');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `users`
+-- Estrutura para tabela `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` char(30) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `access_level` int(1) NOT NULL DEFAULT 0,
+  `access_level` int(1) NOT NULL,
   `cpf` varchar(11) NOT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `status` char(10) NOT NULL DEFAULT 'ATIVO'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `users`
+-- Despejando dados para a tabela `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `access_level`, `cpf`, `phone`, `status`) VALUES
@@ -150,7 +178,7 @@ INSERT INTO `users` (`id`, `name`, `password`, `email`, `access_level`, `cpf`, `
 --
 
 --
--- Índices para tabela `carts`
+-- Índices de tabela `carts`
 --
 ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`),
@@ -158,13 +186,13 @@ ALTER TABLE `carts`
   ADD KEY `product_id` (`product_id`);
 
 --
--- Índices para tabela `categories`
+-- Índices de tabela `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `orders`
+-- Índices de tabela `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
@@ -172,20 +200,20 @@ ALTER TABLE `orders`
   ADD KEY `product_id` (`product_id`);
 
 --
--- Índices para tabela `products`
+-- Índices de tabela `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_products_categories` (`category_id`);
 
 --
--- Índices para tabela `users`
+-- Índices de tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
@@ -210,7 +238,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de tabela `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de tabela `users`
@@ -219,25 +247,25 @@ ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `carts`
+-- Restrições para tabelas `carts`
 --
 ALTER TABLE `carts`
   ADD CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
--- Limitadores para a tabela `orders`
+-- Restrições para tabelas `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
--- Limitadores para a tabela `products`
+-- Restrições para tabelas `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `fk_products_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);

@@ -34,8 +34,7 @@ class Cart extends Conexao
     ];
   }
 
-  public function getItems(int $userId)
-  {
+  public function getItems(int $userId){
     $sql = mysqli_query($this->conectar, "SELECT * FROM carts WHERE user_id = $userId");
 
     if ($sql->num_rows == 0) {
@@ -72,4 +71,43 @@ class Cart extends Conexao
       'items' => $products,
     ];
   }
+public function getItemsCard(int $userId) {
+    // Consulta otimizada usando JOIN para buscar produtos e carrinho de uma vez
+    $sql = mysqli_query($this->conectar, "
+        SELECT carts.quantity, products.name, products.image, products.price 
+        FROM carts 
+        JOIN products ON carts.product_id = products.id 
+        WHERE carts.user_id = $userId AND products.status = 'ATIVO'
+    ");
+
+    // Verifica se há resultados
+    if ($sql->num_rows == 0) {
+        return '<p>Não há Itens no Carrinho!</p>';
+    }
+
+    // Inicializa o HTML que será retornado
+    $html = '<div class="d-flex align-items-center gap-3">';
+
+    // Loop para percorrer os resultados da consulta
+    while ($product = $sql->fetch_assoc()) {
+        $html .= '
+            <div class="d-flex flex-column align-items-center">
+                <span class="badge bg-secondary rounded-pill">' . $product['quantity'] . '</span>
+                <img src="' . $product['image'] . '" class="rounded-circle" style="width: 40px; height: 40px;">
+            </div>';
+    }
+
+    // Adiciona o botão "+" no final da lista de produtos
+    $html .= '
+        <div class="d-flex align-items-center justify-content-center bg-success rounded-circle" style="width: 40px; height: 40px;">
+            <span class="text-white fw-bold">+</span>
+        </div>';
+
+    // Fecha o container HTML
+    $html .= '</div>';
+
+    // Retorna o HTML gerado
+    return $html;
+}
+
 }
