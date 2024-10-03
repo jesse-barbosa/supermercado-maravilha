@@ -81,6 +81,5 @@ class MostrarProdutos extends Conexao {
             echo "<p class='text-danger'>Erro ao buscar produtos: " . $e->getMessage() . "</p>";
         }
     }
-    
 }
 ?>
