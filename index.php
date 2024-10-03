@@ -46,7 +46,7 @@
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="login-container">
                     <div class="logo">
                         <img src="img/logo.svg" alt="Logo" style="width: 80px;">
