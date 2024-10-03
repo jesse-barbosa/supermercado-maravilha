@@ -1,9 +1,10 @@
 <?php
 include_once("Conexao.php");
+
 class MostrarProdutos extends Conexao {
-    public function mostrarProdutos($categoriaId = null) {
+    public function mostrarProdutos($categoriaId = null, $tokenProduto = null) {
         try {
-            // Query para buscar os produtos, com filtro opcional de categoria
+            // Query para buscar os produtos, com filtro opcional de categoria e token
             $sql = "
             SELECT 
                 p.id as idProduct, 
@@ -21,16 +22,21 @@ class MostrarProdutos extends Conexao {
                 categories c ON p.category_id = c.id
             WHERE 
                 p.status = 'ATIVO'";
-
+    
             // Adicionar o filtro de categoria, se o ID for passado
             if ($categoriaId) {
                 $sql .= " AND c.id = " . intval($categoriaId);
             }
-
+    
+            // Adicionar o filtro do token do produto, se fornecido
+            if ($tokenProduto) {
+                $sql .= " AND p.id = " . intval(trim($tokenProduto));
+            }
+    
             // Executar a query
             $query = self::execSql($sql);
             $produtos = self::listarDados($query);
-
+    
             // Verificar se há produtos
             if (count($produtos) > 0) {
                 // Agrupar os produtos por categoria
@@ -38,7 +44,7 @@ class MostrarProdutos extends Conexao {
                 foreach ($produtos as $produto) {
                     $produtosAgrupados[$produto['nameCategory']][] = $produto;
                 }
-
+    
                 // Loop por categorias e produtos para exibir no HTML
                 foreach ($produtosAgrupados as $categoria => $produtos) {
                     echo "<h2 class='mt-4 fw-medium'>{$categoria}</h2>";
@@ -65,16 +71,16 @@ class MostrarProdutos extends Conexao {
                         </div>
                         ";
                     }
-
+    
                     echo "</div>";
                 }
             } else {
-                echo "<p class='text-center text-dark pt-2'>Nenhum produto disponível no momento.</p>";
+                echo "<p class='text-center text-dark pt-2'>Produto não encontrado <i class='bi bi-emoji-frown'></i></p>";
             }
         } catch (Exception $e) {
             echo "<p class='text-danger'>Erro ao buscar produtos: " . $e->getMessage() . "</p>";
         }
     }
+    
 }
-
 ?>
