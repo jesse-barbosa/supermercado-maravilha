@@ -1,15 +1,13 @@
 <?php
-class TrocarUrl {
-    public function trocarUrl($tela) {
-        try {
-            if($tela){
-                include_once("../telas/$tela.php");
-            }   else {
-                include_once("../telas/home.php");
+    class TrocarUrl{
+        public function trocarUrl($url){
+
+            if(empty($url || $url = null)){
+                $url = "../telas/home.php";
+            } else{
+                $url = "../telas/$url.php";
             }
-        } catch (Exception $e) {
-            echo "Erro: " . $e->getMessage();
+            include_once($url);
         }
     }
-}
 ?>
