@@ -77,8 +77,8 @@
             <form method="GET" action="">
                 <input type="hidden" name="categoria_id" value="<?php echo isset($_GET['categoria_id']) ? htmlspecialchars($_GET['categoria_id']) : ''; ?>" />
                 <div class="input-group ">
-                    <input type="text" class="form-control rounded-end-0 rounded-4 search py-3" id="product-code" name="token_produto" placeholder="Ex: #123" />
-                    <button type="submit" class="btn search rounded-start-0 rounded-4 py-3"><i class="bi bi-search"></i></button>
+                    <input type="text" class="form-control border-0 rounded-end-0 rounded-4 search py-3" id="product-code" name="token_produto" placeholder="Ex: #123" />
+                    <button type="submit" class="btn search border-0 rounded-start-0 rounded-4 py-3"><i class="bi bi-search"></i></button>
                 </div>
             </form>
         </div>
