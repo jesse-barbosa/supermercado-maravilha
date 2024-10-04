@@ -17,7 +17,11 @@
     $products = $cart->getItems($_SESSION['id'])['items'];
 
     if ($products == null) {
-      echo "<span> Não Há Itens no Carrinho! </span>";
+      echo "<div class='text-center my-auto flex-column'>";
+        echo "<i class='bi bi-emoji-frown fs-1 text-secondary'></i>";
+        echo "<h2 class='mt-3 text-secondary'> Ops! Seu carrinho está vazio.</h2>";
+      echo "</div>";
+
     }
 
     $total_price = 0;
@@ -62,7 +66,7 @@
   </section>
 
   <!-- Footer com valor total -->
-  <div style="align-items: center; padding: 4px; font-weight: bold; border: 1px solid #D1D1D1;" class="cartFooter">
+  <div style="align-items: center; padding: 4px; font-weight: bold;" class="cartFooter">
     <p class="my-2 ms-1 fs-4">Total: R$ <?php echo number_format($total_price, 2, ',', '.'); ?></p>
     <button type="button" class="btn-confirm form-control" style="border: 0; border-radius: 4px; color: #FFF; padding: 8px;">
       Finalizar

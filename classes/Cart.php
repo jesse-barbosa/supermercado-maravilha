@@ -1,107 +1,109 @@
 <?php
-
 require_once "Conexao.php";
 
-class Cart extends Conexao
-{
-  public function addItem(
-    int $userId,
-    int $productId,
-    int $quantity
-  ) {
-    $info = mysqli_query($this->conectar, "SELECT * FROM carts WHERE user_id = $userId AND product_id = $productId");
+class Cart extends Conexao {
+    public function addItem(int $userId, int $productId, int $quantity) {
+        $this->conectar(); // Estabelece a conexão
 
-    $query = match (true) {
-      $info->num_rows == 0 => mysqli_query($this->conectar, "INSERT INTO carts (user_id, product_id, quantity) VALUES ($userId, $productId, $quantity)"),
-      $info->num_rows > 0 => mysqli_query($this->conectar, "UPDATE carts SET quantity = $quantity WHERE user_id = $userId AND product_id = $productId")
-    };
+        // Verifica se o produto já está no carrinho do usuário
+        $stmt = $this->conectar->prepare("SELECT * FROM carts WHERE user_id = ? AND product_id = ?");
+        $stmt->bind_param("ii", $userId, $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    $sql = mysqli_query($this->conectar, $query);
+        if ($result->num_rows == 0) {
+            // Insere novo item no carrinho
+            $stmt = $this->conectar->prepare("INSERT INTO carts (user_id, product_id, quantity) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $userId, $productId, $quantity);
+        } else {
+            // Atualiza a quantidade do item no carrinho existente
+            $stmt = $this->conectar->prepare("UPDATE carts SET quantity = quantity + ? WHERE user_id = ? AND product_id = ?");
+            $stmt->bind_param("iii", $quantity, $userId, $productId);
+        }
 
-    return [
-      'status' => true,
-      'message' => 'Item adicionado com sucesso'
-    ];
-  }
-
-  public function deleteItem(int $userId, int $productId)
-  {
-    $sql = mysqli_query($this->conectar, "DELETE FROM carts WHERE user_id = $userId AND product_id = $productId");
-
-    return [
-      'status' => true,
-      'message' => 'Item removido com sucesso'
-    ];
-  }
-
-  public function getItems(int $userId){
-    $sql = mysqli_query($this->conectar, "SELECT * FROM carts WHERE user_id = $userId");
-
-    if ($sql->num_rows == 0) {
-      return [
-        'status' => true,
-        'Não há Itens no Carrinho!'
-      ];
+        if ($stmt->execute()) {
+            return [
+                'status' => true,
+                'message' => 'Item adicionado/atualizado com sucesso'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Erro ao adicionar/atualizar o item no carrinho'
+            ];
+        }
     }
 
-    $results = $sql->fetch_all(MYSQLI_ASSOC);
+    public function deleteItem(int $userId, int $productId) {
+        $this->conectar(); // Estabelece a conexão
+        $stmt = $this->conectar->prepare("DELETE FROM carts WHERE user_id = ? AND product_id = ?");
+        $stmt->bind_param("ii", $userId, $productId);
 
-    $products = [];
-
-    foreach ($results as $result) {
-      $sql = mysqli_query($this->conectar, "SELECT * FROM products WHERE id = $result[product_id] and STATUS = 'ATIVO' lIMIT 1");
-
-      if ($sql->num_rows == 0) {
-        return;
-      }
-
-      $product = $sql->fetch_assoc();
-
-      array_push($products, [
-        'name' => $product['name'],
-        'image' => $product['image'],
-        'price' => $product['price'],
-        'quantity' => $result['quantity']
-      ]);
+        if ($stmt->execute()) {
+            return [
+                'status' => true,
+                'message' => 'Item removido com sucesso'
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Erro ao remover o item do carrinho'
+            ];
+        }
     }
 
-    return [
-      'status' => true,
-      'message' => 'Items encontrados com Sucesso!',
-      'items' => $products,
-    ];
-  }
-public function getItemsCard(int $userId) {
-    // Consulta otimizada usando JOIN para buscar produtos e carrinho de uma vez
-    $sql = mysqli_query($this->conectar, "
-        SELECT carts.quantity, products.name, products.image, products.price 
-        FROM carts 
-        JOIN products ON carts.product_id = products.id 
-        WHERE carts.user_id = $userId AND products.status = 'ATIVO'
-    ");
+    public function getItems(int $userId) {
+        $this->conectar(); // Estabelece a conexão
+        $stmt = $this->conectar->prepare("SELECT c.quantity, p.name, p.price, p.image 
+                                           FROM carts c 
+                                           JOIN products p ON c.product_id = p.id 
+                                           WHERE c.user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    // Verifica se há resultados
-    if ($sql->num_rows == 0) {
-        return '<p>Não há Itens no Carrinho!</p>';
+        if ($result->num_rows == 0) {
+            return [
+                'status' => true,
+                'message' => 'Não há Itens no Carrinho!',
+                'items' => []
+            ];
+        }
+
+        $items = $result->fetch_all(MYSQLI_ASSOC);
+
+        return [
+            'status' => true,
+            'items' => $items
+        ];
     }
 
-    // Inicializa o HTML que será retornado
-    $html = '<div class="d-flex align-items-center gap-3">';
+    public function getItemsCard(int $userId)
+    {
+        // A conexão é estabelecida na construção da classe `Cart`, portanto, não precisamos chamá-la novamente
+        $stmt = $this->conectar->prepare("SELECT c.quantity, p.name, p.price, p.image 
+                                           FROM carts c 
+                                           JOIN products p ON c.product_id = p.id 
+                                           WHERE c.user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    // Loop para percorrer os resultados da consulta
-    while ($product = $sql->fetch_assoc()) {
-        $html .= '
-            <div class="d-flex flex-column align-items-center">
-                <span class="badge bg-secondary rounded-pill">' . $product['quantity'] . '</span>
-                <img src="' . $product['image'] . '" class="rounded-circle" style="width: 40px; height: 40px;">
-            </div>';
+        if ($result->num_rows == 0) {
+            return "<div class='alert alert-warning'>Não há itens no carrinho!</div>";
+        }
+
+        $items = $result->fetch_all(MYSQLI_ASSOC);
+        $output = "<ul class='list-group'>";
+
+        foreach ($items as $item) {
+            $output .= "<li class='list-group-item'>";
+            $output .= "<img src='" . htmlspecialchars($item['image']) . "' alt='" . htmlspecialchars($item['name']) . "' style='width: 50px;'> ";
+            $output .= htmlspecialchars($item['name']) . " - Preço: R$ " . number_format($item['price'], 2, ',', '.') . " - Quantidade: " . htmlspecialchars($item['quantity']);
+            $output .= "</li>";
+        }
+        $output .= "</ul>";
+
+        return $output;
     }
-
-    // Fecha o container HTML
-    $html .= '</div>';
-
-    // Retorna o HTML gerado
-    return $html;
-}
-
 }
