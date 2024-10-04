@@ -9,7 +9,6 @@ $userId = $_SESSION['id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id'])) {
     $orderId = $_POST['order_id'];
     
-    // Chame a função para cancelar o pedido
     $cancelResponse = $orderClass->cancelOrder($orderId);
 }
 

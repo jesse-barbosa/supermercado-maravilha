@@ -109,7 +109,7 @@ class Mostrar extends CriaPaginacao {
             // Configurações de paginação
             $this->setParametro($this->strNumPagina);
             $this->setFileName($this->strUrl);
-            $this->setInfoMaxPag(5);
+            $this->setInfoMaxPag(3);
             $this->setMaximoLinks(9);
             $this->setSQL($sql);
             $this->iniciaPaginacao();
@@ -143,7 +143,7 @@ class Mostrar extends CriaPaginacao {
                         echo "<td class='fw-light text-dark'>" . $resultado['priceProduct'] . "</td>";
                         echo "<td class='fw-light text-dark'>" . $resultado['quantProduct'] . "</td>";
                         if (!empty($resultado['urlImage'])) {
-                            echo "<td class='fw-light text-dark'><img src='" . $resultado['urlImage'] . "' class='h-25 w-25' alt='Imagem do Produto'/></td>";
+                            echo "<td class='fw-light text-dark'><img src='" . $resultado['urlImage'] . "' width='80px' alt='Imagem do Produto'/></td>";
                         } else {
                             echo "<td class='fw-light text-dark'>Sem imagem</td>";
                         }
@@ -237,7 +237,7 @@ class Mostrar extends CriaPaginacao {
                         echo "<td class='fw-light text-dark'>" . $resultado['nameUser'] . "</td>";
                         echo "<td class='fw-light text-dark'>" . $resultado['nameProduct'] . "</td>";
                         if (!empty($resultado['urlImage'])) {
-                            echo "<td class='fw-light text-dark'><img src='" . $resultado['urlImage'] . "' class='h-25 w-25' alt='Imagem do Produto'/></td>";
+                            echo "<td class='fw-light text-dark'><img src='" . $resultado['urlImage'] . "' width='80px' alt='Imagem do Produto'/></td>";
                         } else {
                             echo "<td class='fw-light text-dark'>Sem imagem</td>";
                         }

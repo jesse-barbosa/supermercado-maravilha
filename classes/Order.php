@@ -89,7 +89,7 @@ class Order extends Conexao {
         $status = 0;
         $stmt->bind_param("ii", $status, $orderId);
         $stmt->execute();
-
+        echo "<script>alert('Pedido cancelado com sucesso.');window.location.href='index.php?tela=orders'</script>";
         return [
             'status' => true,
             'message' => 'Pedido cancelado com sucesso'
