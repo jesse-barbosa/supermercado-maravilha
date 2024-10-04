@@ -57,7 +57,7 @@ foreach ($products as $product) {
         <h2 class="mt-2 fw-medium">Faça o Pagamento</h2>
     </div>
 
-    <section class='p-3' style="display: flex; flex-direction: column; gap: 2px; height: 32vh; overflow: auto;">
+    <section class='p-3' style="display: flex; flex-direction: column; gap: 2px; height: 26vh; overflow: auto;">
         <?php
         if ($products == null) {
             echo "<div class='text-center my-auto flex-column'>";

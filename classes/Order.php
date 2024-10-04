@@ -81,5 +81,26 @@ class Order extends Conexao {
         
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+    public function cancelOrder(int $orderId) {
+    try {
+        // Prepara a atualização do status do pedido
+        $sql = "UPDATE orders SET status = ? WHERE id = ?";
+        $stmt = $this->conectar->prepare($sql);
+        $status = 0;
+        $stmt->bind_param("ii", $status, $orderId);
+        $stmt->execute();
+
+        return [
+            'status' => true,
+            'message' => 'Pedido cancelado com sucesso'
+        ];
+    } catch (Exception $e) {
+        return [
+            'status' => false,
+            'message' => 'Erro ao cancelar o pedido: ' . $e->getMessage()
+        ];
+    }
+}
+
 }
 ?>

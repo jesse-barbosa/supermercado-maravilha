@@ -1,11 +1,21 @@
 <?php
 include_once('../classes/Cart.php');
-include_once('../classes/Order.php'); // Para buscar ícones dos produtos
+include_once('../classes/Order.php');
 
 $orderClass = new Order();
 $userId = $_SESSION['id'];
-$orderResponse = $orderClass->getOrders($userId); // Retorna o array com 'status', 'message' e 'orders'
-$orders = $orderResponse['orders']; // Obtendo os pedidos especificamente
+
+// Verificar se há um pedido para cancelar
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id'])) {
+    $orderId = $_POST['order_id'];
+    
+    // Chame a função para cancelar o pedido
+    $cancelResponse = $orderClass->cancelOrder($orderId);
+}
+
+// Recuperar os pedidos atualizados após o possível cancelamento
+$orderResponse = $orderClass->getOrders($userId);
+$orders = $orderResponse['orders'];
 
 // Função para mapear o status
 function mapStatus($status) {
@@ -17,6 +27,13 @@ function mapStatus($status) {
     }
 }
 ?>
+
+<style>
+    .cancelled {
+        opacity: 0.5; /* Reduz a opacidade do card */
+        text-decoration: line-through; /* Tacha o texto */
+    }
+</style>
 
 <section style="margin: 12px; min-height: 80vh;">
   <!-- Botão para voltar para home -->
@@ -34,7 +51,7 @@ function mapStatus($status) {
       </div>
     <?php else : ?>
       <?php foreach ($orders as $order) : ?>
-        <div style='display: flex; flex-direction: column; border: 1px solid #D1D1D1; border-radius: 4px; padding: 16px; margin: 8px 0;'>
+        <div style='display: flex; flex-direction: column; border: 1px solid #D1D1D1; border-radius: 4px; padding: 16px; margin: 8px 0; <?php echo $order['status'] === 0 ? 'opacity: 0.5; text-decoration: line-through;' : ''; ?>'>
           <h5>Pedido #<?php echo $order['id']; ?></h5>
           <p><strong>Status:</strong> <?php echo mapStatus($order['status']); ?></p>
 
@@ -46,12 +63,42 @@ function mapStatus($status) {
             $items = $productClass->getItemsByOrderId($order['id']); // Método para obter itens do pedido
 
             foreach ($items as $item) : ?>
-              <li>
+              <li style="<?php echo $order['status'] === 0 ? 'text-decoration: line-through;' : ''; ?>">
                 <img src="<?php echo $item['image']; ?>" alt="<?php echo $item['name']; ?>" style="width: 20px; height: 20px;"/> 
                 <?php echo $item['name'] . " - R$ " . number_format($item['price'], 2, ',', '.') . " x " . $item['quantity']; ?>
               </li>
             <?php endforeach; ?>
           </ul>
+
+          <!-- Condicional para exibir o botão apenas se o pedido não estiver cancelado -->
+          <?php if ($order['status'] !== 0) : ?>
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#cancelModal<?php echo $order['id']; ?>">
+              Cancelar Pedido <i class="bi bi-x-circle ms-1"></i>
+            </button>
+          <?php endif; ?>
+
+          <!-- Modal de confirmação -->
+          <div class="modal fade" id="cancelModal<?php echo $order['id']; ?>" tabindex="-1" aria-labelledby="cancelModalLabel<?php echo $order['id']; ?>" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="cancelModalLabel<?php echo $order['id']; ?>">Cancelar Pedido #<?php echo $order['id']; ?></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Você tem certeza que deseja cancelar este pedido?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <form action="" method="POST" style="display:inline;">
+                    <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                    <button type="submit" class="btn btn-dark">Confirmar Cancelamento</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       <?php endforeach; ?>
     <?php endif; ?>
