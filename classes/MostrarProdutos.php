@@ -61,6 +61,7 @@ class MostrarProdutos extends Conexao {
                                     class='btn btn-confirm text-white form-control' 
                                     data-bs-toggle='modal' 
                                     data-bs-target='#staticBackdrop'
+                                    data-id='{$produto['idProduct']}'
                                     data-name='{$produto['nameProduct']}'
                                     data-price='" . number_format($produto['priceProduct'], 2, ',', '.') . "'
                                     data-image='{$produto['urlImage']}'>

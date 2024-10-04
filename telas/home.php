@@ -1,5 +1,5 @@
 <main>
-    <a href="index.php?tela=cart" class="text-decoration-none">
+<a href="index.php?tela=cart" class="text-decoration-none">
         <div class="container-fluid my-3">
             <div class="buy-list p-3 rounded-5 d-flex justify-content-between mx-auto">
                 <div class="flex-column">
@@ -8,7 +8,7 @@
                         include_once("../classes/Cart.php");
 
                         $cart = new Cart();
-                        echo $cart->getItemsCard($_SESSION['id']);  // Isso agora deve funcionar corretamente
+                        echo $cart->getItemsCard($_SESSION['id']);
                     ?>
                 </div>
                 <img src="../img/ilustration.svg" style="width: 160px !important; height: 160px !important;" alt="">
@@ -47,27 +47,25 @@
                         <button type="submit" name="enviar" class="form-control btn btn-confirm text-white">Confirmar</button>
                     </form>
                     <?php
-                    if (isset($_POST['enviar'])) {
-                        include_once("../classes/Cart.php");
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar'])) {
+                            include_once("../classes/Cart.php");
 
-                        $cart = new Cart();
-                        $userId = $_POST['user_id'];
-                        $productId = (int) $_POST['product_id'];
-                        $quantity = $_POST['quantity'];
+                            $cart = new Cart();
+                            $userId = $_POST['user_id'];
+                            $productId = (int) $_POST['product_id'];
+                            $quantity = $_POST['quantity'];
+                            
+                            if ($productId > 0 && $quantity > 0) {
+                                $response = $cart->addItem($userId, $productId, $quantity);
 
-                        echo $userId;
-                        echo $productId;
-                        echo $quantity;
-
-                        $response = $cart->addItem($userId, $productId, $quantity);
-
-                        if ($response['status']) {
-                            // Redireciona para a página do carrinho
-                            header("Location: index.php?tela=cart");
-                        } else {
-                            echo "Erro ao adicionar ao carrinho.";
+                                if ($response['status']) {
+                                    echo("<script>window.location.href='index.php?tela=cart'</script>");
+                                    exit;
+                                } else {
+                                    echo "Erro ao adicionar ao carrinho: " . $response['message'];
+                                }
+                            }
                         }
-                    }
                     ?>
                 </div>
             </div>
@@ -101,7 +99,7 @@ var modal = document.getElementById('staticBackdrop');
 
 modal.addEventListener('show.bs.modal', function (event) {
     var button = event.relatedTarget;
-    var productId = button.getAttribute('data-id'); // Obtenha o ID do produto
+    var productId = button.getAttribute('data-id');
     var productName = button.getAttribute('data-name');
     var productPrice = parseFloat(button.getAttribute('data-price').replace(',', '.'));
     var productImage = button.getAttribute('data-image');
