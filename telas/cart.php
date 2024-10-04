@@ -1,27 +1,39 @@
-<section style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; gap: 12px; margin: 12px; min-height: 80vh;">
+<?php
+require_once dirname(__DIR__) . '/classes/Cart.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+    $cart = new Cart();
+    $userId = $_POST['user_id'];
+    $productId = $_POST['product_id'];
+    $response = $cart->deleteItem($userId, $productId);
+    if ($response['status']) {
+        echo "<script>alert('Produto removido com sucesso!'); window.location.href='index.php?tela=cart'</script>";
+        exit;
+    } else {
+        echo "<p>Erro ao remover o item: " . $response['message'] . "</p>";
+    }
+}
+
+$cart = new Cart();
+$products = $cart->getItems($_SESSION['id'])['items'];
+?>
+
+<section style="display: flex; flex-direction: column; justify-content: space-between; height: 100%; gap: 12px; margin: 12px; min-height: 80vh;">
   <!-- Botão para voltar para home -->
   <a href="index.php" style="text-decoration: none; color: inherit;">
     <button type="button" style="border: none; background-color: transparent; cursor: pointer;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="38" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 0-.708 0L2.5 7.293l2.646 2.647a.5.5 0 0 0 .708-.708L4.207 8H13.5a.5.5 0 0 0 0-1H4.207l1.647-1.646a.5.5 0 0 0 0-.708z"/>
-      </svg>
+      <i class="bi bi-arrow-left" style="font-size: 26px;"></i>
     </button>
   </a>
 
   <!-- Seção de itens do carrinho -->
   <section style="display: flex; flex-direction: column; gap: 12px; height: 62vh; overflow: auto;">
     <?php
-    require_once dirname(__DIR__) . '/classes/Cart.php';
-    $cart = new Cart();
-    $products = $cart->getItems($_SESSION['id'])['items'];
-
     if ($products == null) {
       echo "<div class='text-center my-auto flex-column'>";
         echo "<i class='bi bi-emoji-frown fs-1 text-secondary'></i>";
         echo "<h2 class='mt-3 text-secondary'> Ops! Seu carrinho está vazio.</h2>";
       echo "</div>";
-
     }
 
     $total_price = 0;
@@ -33,32 +45,25 @@
       echo "
         <div style='display: flex; align-items: center; justify-content: start; gap: 12px; padding: 12px; background-color: white; border-radius: 4px; position: relative; margin-right: 20px; margin-left: 20px; border: 1px solid #D1D1D1;'>
           <img src='$product[image]' alt='$product[name]' style='width: 64px; height: 64px;' />
-
           <div style='display: flex; flex-direction: column; justify-content: start; width: 100%;'>
             <p style='font-weight: bold; text-align: start; margin: 0;'>$product[name]</p>
             <p style='text-align: start; margin: 0;'>R$ $productPriceFormat</p>
           </div>
-
           <!-- Botões de editar e apagar -->
           <div style='display: flex; gap: 24px;'>
             <!-- Botão para abrir modal de edição -->
             <button type='button' style='border: 0; background-color: white; cursor: pointer;' data-bs-toggle='modal' data-bs-target='#editModal'>
-              <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'>
-                <path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z Z' />
-                <path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z Z' />
-              </svg>
+              <i class='bi bi-pencil-square' style='font-size: 24px;'></i>
             </button>
-
             <!-- Botão para abrir modal de confirmação de exclusão -->
-            <button type='button' style='border: 0; color: red; background-color: white; cursor: pointer;' data-bs-toggle='modal' data-bs-target='#deleteModal'>
-              <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-trash3-fill' viewBox='0 0 16 16'>
-                <path d='M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5 Z' />
-              </svg>
+            <button type='button' style='border: 0; color: red; background-color: white; cursor: pointer;' 
+                    data-bs-toggle='modal' data-bs-target='#deleteModal'
+                    data-id='$product[id]' data-user='$_SESSION[id]'>
+              <i class='bi bi-trash3-fill' style='font-size: 24px;'></i>
             </button>
           </div>
-
           <div style='position: absolute; top: 4px; right: 1%; font-size: 14px;'>
-            <span>x$product[quantity]</span>
+                      <span>x$product[quantity]</span>
           </div>
         </div>";
     }
@@ -105,6 +110,7 @@
     </div>
   </div>
 </div>
+
 <!-- Modal para Confirmar Exclusão -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -117,15 +123,25 @@
         <p>Você tem certeza de que deseja excluir este item do carrinho?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger" onclick="deleteItem()">Excluir</button>
+        <form method="POST" action="">
+          <input type="hidden" name="user_id" id="delete-user-id" value="">
+          <input type="hidden" name="product_id" id="delete-product-id" value="">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" name="delete" class="btn btn-danger">Excluir</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Função para excluir item do carrinho -->
 <script>
-  function deleteItem() {
-  }
+  // Script para preencher os campos ocultos do formulário com os dados do produto a ser excluído
+  document.querySelectorAll("[data-bs-target='#deleteModal']").forEach(button => {
+    button.addEventListener('click', function() {
+      const productId = this.getAttribute('data-id');
+      const userId = this.getAttribute('data-user');
+      document.getElementById('delete-product-id').value = productId;
+      document.getElementById('delete-user-id').value = userId;
+    });
+  });
 </script>

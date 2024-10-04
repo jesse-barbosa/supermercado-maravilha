@@ -68,7 +68,7 @@ class Cart extends Conexao {
 
     public function getItems(int $userId) {
         $this->conectar(); // Estabelece a conexão
-        $stmt = $this->conectar->prepare("SELECT c.quantity, p.name, p.price, p.image 
+        $stmt = $this->conectar->prepare("SELECT c.quantity, p.id, p.name, p.price, p.image 
                                            FROM carts c 
                                            JOIN products p ON c.product_id = p.id 
                                            WHERE c.user_id = ?");
@@ -108,11 +108,11 @@ class Cart extends Conexao {
     
         // Verifica se há resultados
         if ($sql->num_rows == 0) {
-            return '<p>Não há Itens no Carrinho!</p>';
+            return '<p class="text-dark opacity-50">Não há Itens no Carrinho!</p>';
         }
     
         // Inicializa o HTML que será retornado
-        $html = '<div class="d-flex align-items-center gap-0">';
+        $html = '<div class="d-flex align-items-center mt-4 gap-0">';
         $count = 0; // Contador de produtos exibidos
     
         // Loop para percorrer os resultados da consulta
@@ -132,7 +132,7 @@ class Cart extends Conexao {
             $excessCount = $count - 4;
             $html .= '
                     <div class="rounded-circle mt-3 bg-light d-flex justify-content-center align-items-center" style="width: 40px; height: 40px;">
-                        <span class="text-muted">+' . $excessCount . '</span>
+                        <span class="text-muted fw-semibold">+' . $excessCount . '</span>
                     </div>';
         }
     

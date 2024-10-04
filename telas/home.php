@@ -59,7 +59,7 @@
                                 $response = $cart->addItem($userId, $productId, $quantity);
 
                                 if ($response['status']) {
-                                    echo("<script>window.location.href='index.php?tela=cart'</script>");
+                                    echo("<script>alert('Produto adicionado com sucesso!'); window.location.href='index.php?tela=home'</script>");
                                     exit;
                                 } else {
                                     echo "Erro ao adicionar ao carrinho: " . $response['message'];
