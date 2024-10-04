@@ -103,9 +103,9 @@ $products = $cart->getItems($_SESSION['id'])['items'];
   <!-- Footer com valor total -->
   <div style="align-items: center; padding: 4px; font-weight : bold;" class="cartFooter">
     <p class="my-2 ms-1 fs-4">Total: R$ <?php echo number_format($total_price, 2, ',', '.'); ?></p>
-    <button type="button" class="btn-confirm form-control" style="border: 0; border-radius: 4px; color: #FFF; padding: 8px;">
-      Finalizar
-    </button>
+  <button type="button" class="btn-confirm form-control" style="border: 0; border-radius: 4px; color: #FFF; padding: 8px;" onclick="window.location.href='index.php?tela=payment';">
+    Finalizar
+  </button>
   </div>
 
 </section>

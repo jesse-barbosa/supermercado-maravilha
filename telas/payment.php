@@ -1,11 +1,10 @@
 <?php
-require_once dirname(__DIR__) . '/classes/Cart.php';
-require_once dirname(__DIR__) . '/classes/Orders.php'; // Inclui a classe Orders
+include_once('../classes/Cart.php');
+include_once('../classes/Order.php');
 
-// Verifica se a requisição é um POST para criar o pedido
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
     $cart = new Cart();
-    $orders = new Orders();
+    $orders = new Order();
     $userId = $_SESSION['id'];
 
     // Obtém os itens do carrinho
@@ -16,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pay'])) {
         $total_price += $item['price'] * $item['quantity'];
     }
 
-    // Define o método de pagamento
-    $paymentMethod = $_POST['payment_method']; // Método de pagamento do formulário
-    $response = $orders->createOrder($userId, $cartItems, $total_price, $paymentMethod);
+    $status = 2;
+
+    $response = $orders->createOrder($userId, $cartItems,  $status);
 
     if ($response['status']) {
         echo "<script>alert('Pedido criado com sucesso!'); window.location.href='index.php?tela=orders'</script>";
@@ -144,7 +143,7 @@ foreach ($products as $product) {
             </div>
             <form method="POST">
                 <input type="hidden" name="payment_method" id="payment_method" value="">
-                <button class="btn btn-dark mt-3 w-100" id="pay-button" onclick="setPaymentMethod()" type="submit">Pagar</button>
+                <input type="submit" name="pay" class="btn btn-dark mt-3 w-100" id="pay-button" value="Pagar">
             </form>
         </div>
     </div>
