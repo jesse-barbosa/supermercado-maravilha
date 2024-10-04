@@ -19,13 +19,19 @@ class Cart extends Conexao {
             // Verifica se o produto já está no carrinho do usuário
             $sql = "SELECT * FROM carts WHERE user_id = $userId AND product_id = $productId";
             $result = self::execSql($sql);
-    
+            
             if (self::contarDados($result) == 0) {
                 // Insere novo item no carrinho
                 $sql = "INSERT INTO carts (user_id, product_id, quantity) VALUES ($userId, $productId, $quantity)";
             } else {
                 // Atualiza a quantidade do item no carrinho existente
-                $sql = "UPDATE carts SET quantity = quantity + $quantity WHERE user_id = $userId AND product_id = $productId";
+                // Se a nova quantidade for 0, remove o item do carrinho
+                if ($quantity <= 0) {
+                    $sql = "DELETE FROM carts WHERE user_id = $userId AND product_id = $productId";
+                } else {
+                    // Atualiza a quantidade do item para a nova quantidade
+                    $sql = "UPDATE carts SET quantity = $quantity WHERE user_id = $userId AND product_id = $productId";
+                }
             }
     
             // Executa o comando
@@ -46,8 +52,8 @@ class Cart extends Conexao {
                 'message' => 'Erro ao processar a operação: ' . $e->getMessage()
             ];
         }
-    }
-    
+    }    
+
     public function deleteItem(int $userId, int $productId) {
         $this->conectar(); // Estabelece a conexão
         $stmt = $this->conectar->prepare("DELETE FROM carts WHERE user_id = ? AND product_id = ?");
