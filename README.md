@@ -25,6 +25,6 @@ Dentro de htdocs, faça um clone do projeto:
 
 ## 4. Rode o projeto
 
-# Com os servidores Apache e MySql do XAMPP ligados, acesse o projeto no seu navegador:
+Com os servidores Apache e MySql do XAMPP ligados, acesse o projeto no seu navegador:
 
     localhost/supermercado-maravilha/
